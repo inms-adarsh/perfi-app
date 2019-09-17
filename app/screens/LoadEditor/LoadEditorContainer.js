@@ -30,8 +30,8 @@ const enhance = compose(
   withState('items', 'setItems', screenProp('items', [])),
   withState('loadNo', 'setLoadNo', screenProp('currentLoadNumber', 1)),
   /*-- ADD STATE PROPS --*/
-		withState('toPay', 'setToPay', screenProp('toPay', 0)),
-		withState('advancePaid', 'setAdvancePaid', screenProp('advancePaid', 0)),
+  withState('toPay', 'setToPay', screenProp('toPay', '')),
+  withState('advancePaid', 'setAdvancePaid', screenProp('advancePaid', '')),
   withState('truckName', 'setTruckName', null),
   withState('isSelectedTruck', 'setSelectedTruck', false),
   withState('truck', 'setTruck', null),
@@ -86,7 +86,7 @@ const enhance = compose(
   withState('isSelectedCustomer', 'setSelectedCustomer', false),
   withState('customer', 'setCustomer', null),
   withState('selectedTabIndex', 'setSelectedTabIndex', 0),
-  withState('valueWithoutGst', 'setValueWithoutGst', 0),
+  withState('valueWithoutGst', 'setValueWithoutGst', screenProp('valueWithoutGst', '')),
   /*-- ADD NAV PROPS --*/
   withProps(({ navigation }) => ({ selectedTruck: getParam('truck')(navigation) })),
   withProps(({ navigation }) => ({ selectedDriver: getParam('driver')(navigation) })),
@@ -100,7 +100,7 @@ const enhance = compose(
   withProps(({ navigation }) => ({ item: getParam('item')(navigation) })),
   withProps(({ load, currentLoadNumber, customer, broker, consignor, consignee, transportation, fromLocation, toLocation, driver, truck,/*-- FETCH PROPS --*/ }) => ({
     /*-- ADD LOOKUP PROPS --*/
-    truckName: R.pathOr('Select Truck', ['name'], truck),
+    truckName: R.pathOr('Select Truck', ['carrierNo'], truck),
     driverName: R.pathOr('Select Driver', ['name'], driver),
     toLocationName: R.pathOr('Select To Location', ['city'], toLocation),
     fromLocationName: R.pathOr('Select From Location', ['city'], fromLocation),
@@ -255,36 +255,40 @@ const enhance = compose(
         backUrl: routeName
       })
     },
-
-    onChangeSetTotalQuantity: ({setTotalQuantity }) => (val) => {
-      setTotalQuantity(val);
-      calculateFreight();
+    onChangeTotalQuantity: ({setTotalQuantity, ratePerUnit, setFreight}) => (val) => {
+        setTotalQuantity(val);
+        setFreight(val * (ratePerUnit || 0));
     },
-
-    onChangeRatePerUnit: ({ setRatePerUnit}) => (val) => {
+    onChangeRatePerUnit: ({totalQuantity, setRatePerUnit, setFreight}) => (val) => {
       setRatePerUnit(val);
-      calculateFreight();
+      setFreight(val * (totalQuantity || 0));
     },
-
-    onChangeGst: ({setGst}) => (val) => {
-      setGst(val);
-      calculateFreight();
-    },
-
-    calculateFreight: () => () => {
-
-    }
   }),
   withPropsOnChange(
     requiredProps,
     props => ({ isValid: !!props.loadNo && props.loadNo.length > 0 && isFieldsFilled(requiredProps, props) }),
   ),
+  // withPropsOnChange(
+  //   ['totalQuantity', 'ratePerUnit'],
+  //   props => ({
+  //     freight: (props.totalQuantity || 0) * (props.ratePerUnit || 0),
+  //   }),
+  // ),
   withPropsOnChange(
-    ['totalQuantity', 'gst', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges' , 'valueWithoutGst', 'advancePaid'],
-    props => ({ 
-      freight: (props.totalQuantity || 0) * (props.ratePerUnit || 0),
-      valueWithoutGst: (props.freight || 0) +  (props.hamali || 0) + (props.haltage || 0) + (props.otherCharges || 0),
-      totalFreight: (props.valueWithoutGst || 0 ) + ((props.valueWithoutGst || 0)*(props.gst || 0) * 0.01),
+    ['freight', 'hamali', 'haltage', 'otherCharges'],
+    props => ({
+      valueWithoutGst: (Number(props.freight) || 0) + (Number(props.hamali) || 0) + (Number(props.haltage) || 0) + (Number(props.otherCharges) || 0),
+    }),
+  ),
+  withPropsOnChange(
+    ['valueWithoutGst', 'gst'],
+    props => ({
+      totalFreight: (props.valueWithoutGst || 0) + ((props.valueWithoutGst || 0) * (props.gst || 0) * 0.01),
+    }),
+  ),
+  withPropsOnChange(
+    ['totalFreight', 'advancePaid'],
+    props => ({
       toPay: ((props.totalFreight) - (props.advancePaid || 0))
     }),
   ),

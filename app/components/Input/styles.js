@@ -8,10 +8,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: verticalIndent * 2.8,
-   // paddingLeft: indent,
+    paddingLeft: indent,
     borderColor: colors.grey,
-    borderBottomWidth: 1,
-    borderRadius: 4,
+    borderWidth: 1,
+    //borderRadius: 1,
   },
   input: {
     flex: 5,

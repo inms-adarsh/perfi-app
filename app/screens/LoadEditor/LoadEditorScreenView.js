@@ -60,7 +60,7 @@ const LoadEditor = (props) => {
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={0}
-            topOffset={90}
+            topOffset={105}
           >
             <ScrollView>
               <View>
@@ -125,7 +125,7 @@ const LoadEditor = (props) => {
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={1}
-            topOffset={90}
+            topOffset={105}
           >
             <ScrollView>
               <FormInput
@@ -174,7 +174,7 @@ const LoadEditor = (props) => {
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={2}
-            topOffset={90}
+            topOffset={105}
           >
             <ScrollView>
               <View>
@@ -219,6 +219,7 @@ const LoadEditor = (props) => {
                 value={props.goodsValue}
                 onChangeText={props.setGoodsValue}
                 containerStyle={s.inputContainer}
+                suffix="₹"
               />
               <Input
                 isValid
@@ -230,26 +231,28 @@ const LoadEditor = (props) => {
                 containerStyle={s.inputContainer}
                 suffix="Optional"
               />
-              <Input
-                isValid
-                placeholder="Total Quantity"
-                label="Total Quantity"
-                keyboardType='numeric'
-                value={props.totalQuantity}
-                onChangeText={props.setTotalQuantity}
-                containerStyle={s.inputContainer}
-              />
-              <View>
-                <Text style={[s.label]}>Units</Text>
-                <Picker
-                  selectedValue={props.quantityUnit}
-                  style={s.selector}
-                  onValueChange={props.onSelectQuantityUnit}>
-                  <Picker.Item label="Tons" value="tons" />
-                  <Picker.Item label="Lbs" value="lbs" />
-                  <Picker.Item label="Packets" value="packets" />
-                  <Picker.Item label="Pieces" value="pieces" />
-                </Picker>
+              <View style={s.container} >
+                <Input
+                  isValid
+                  placeholder="Total Quantity"
+                  label="Total Quantity"
+                  keyboardType='numeric'
+                  value={props.totalQuantity}
+                  onChangeText={props.onChangeTotalQuantity}
+                  containerStyle={[s.inputContainer, s.inlineInput]}
+                />
+                <View style={s.inlineList}>
+                  <Text style={[s.label]}>Units</Text>
+                  <Picker
+                    selectedValue={props.quantityUnit}
+                    style={s.selector}
+                    onValueChange={props.selectQuantityUnit}>
+                    <Picker.Item label="Tons" value="tons" />
+                    <Picker.Item label="Lbs" value="lbs" />
+                    <Picker.Item label="Packets" value="packets" />
+                    <Picker.Item label="Pieces" value="pieces" />
+                  </Picker>
+                </View>
               </View>
               <Input
                 isValid
@@ -257,8 +260,9 @@ const LoadEditor = (props) => {
                 label="Rate per unit"
                 keyboardType='numeric'
                 value={props.ratePerUnit}
-                onChangeText={props.setRatePerUnit}
+                onChangeText={props.onChangeRatePerUnit}
                 containerStyle={s.inputContainer}
+                suffix="₹"
               />
               <Input
                 isValid
@@ -268,6 +272,7 @@ const LoadEditor = (props) => {
                 value={props.freight}
                 onChangeText={props.setFreight}
                 containerStyle={s.inputContainer}
+                suffix="₹"
               />
               <Input
                 isValid
@@ -277,7 +282,7 @@ const LoadEditor = (props) => {
                 value={props.hamali}
                 onChangeText={props.setHamali}
                 containerStyle={s.inputContainer}
-                suffix="Optional"
+                suffix="₹"
               />
               <Input
                 isValid
@@ -287,7 +292,7 @@ const LoadEditor = (props) => {
                 value={props.haltage}
                 onChangeText={props.setHaltage}
                 containerStyle={s.inputContainer}
-                suffix="Optional"
+                suffix="₹"
               />
               <Input
                 isValid
@@ -297,18 +302,31 @@ const LoadEditor = (props) => {
                 value={props.otherCharges}
                 onChangeText={props.setOtherCharges}
                 containerStyle={s.inputContainer}
-                suffix="Optional"
+                suffix="₹"
+                
               />
-              <Input
-                isValid
-                placeholder="GST"
-                label="GST"
-                keyboardType='numeric'
-                value={props.gst}
-                onChangeText={props.setGst}
-                containerStyle={s.inputContainer}
-                suffix="%"
-              />
+              <View style={[s.container]}>
+                <Input
+                  isValid
+                  placeholder="Total Freight Without GST"
+                  label="Total Freight Without GST"
+                  keyboardType='numeric'
+                  value={props.valueWithoutGst}
+                  onChangeText={props.setValueWithoutGst}
+                  containerStyle={[s.inputContainer, s.inlineInput]}
+                  suffix="₹"
+                />
+                <Input
+                  isValid
+                  placeholder="GST"
+                  label="GST"
+                  keyboardType='numeric'
+                  value={props.gst}
+                  onChangeText={props.setGst}
+                  containerStyle={[s.inputContainer, s.inlineList]}
+                  suffix="%"
+                />
+              </View>
               <Input
                 isValid
                 placeholder="Total Freight"
@@ -317,30 +335,35 @@ const LoadEditor = (props) => {
                 value={props.totalFreight}
                 onChangeText={props.setTotalFreight}
                 containerStyle={s.inputContainer}
+                suffix="₹"
               />
 
               <Input
                 isValid
                 placeholder="Advance Payment"
+                label="Advance Payment"
                 value={props.advancePaid}
                 keyboardType="numeric"
                 onChangeText={props.setAdvancePaid}
                 containerStyle={s.inputContainer}
+                suffix="₹"
               />
               <Input
                 isValid
                 placeholder="To Pay"
+                label="To Pay"
                 value={props.toPay}
                 keyboardType="numeric"
                 onChangeText={props.setToPay}
                 containerStyle={s.inputContainer}
+                suffix="₹"
               />
             </ScrollView>
           </TabContainer>
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={3}
-            topOffset={90}
+            topOffset={105}
           >
             <View>
               <Input
@@ -359,6 +382,7 @@ const LoadEditor = (props) => {
                 keyboardType="numeric"
                 onChangeText={props.setInsuredAmount}
                 containerStyle={s.inputContainer}
+                suffix="₹"
               />
             </View>
           </TabContainer>

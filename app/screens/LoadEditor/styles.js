@@ -21,7 +21,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: verticalIndent,
   },
-
+  inlineInput: {
+    flex: 0.7
+  },
+  inlineList: {
+    flex: 0.3
+  },
   inputContainer: {
     marginBottom: dimensions.verticalIndent
   },

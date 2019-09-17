@@ -1,0 +1,7 @@
+export default {
+    CREATE_LOAD: 'CREATE_LOAD',
+    UPDATE_LOAD: 'UPDATE_LOAD',
+    DELETE_LOAD: 'DELETE_LOAD',
+    SELECT_LOAD: 'SELECT_LOAD'
+  };
+  

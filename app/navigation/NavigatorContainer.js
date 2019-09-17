@@ -44,7 +44,7 @@ const enhance = compose(
       if (Platform.OS === 'android') {
         BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
       }
-      store.dispatch(settingsOperations.checkSettings());
+      //store.dispatch(settingsOperations.checkSettings());
     },
     componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress');

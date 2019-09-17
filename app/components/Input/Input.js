@@ -27,6 +27,7 @@ const Input = ({
   onBlur,
   isNotValid,
   isFocusColor = colors.green,
+  suffix,
   ...props
 }) => (
   <View style={containerStyle}>
@@ -59,6 +60,7 @@ const Input = ({
         ref={inputRef}
         style={[s.input, style]}
       />
+      {!!suffix && <Text style={s.prefix}>{suffix}</Text>}
       {
         !!iconRight &&
         <MaterialCommunityIcons
@@ -93,6 +95,7 @@ Input.propTypes = {
   style: Text.propTypes.style,
   onFocus: T.func,
   onBlur: T.func,
+  suffix: T.string,
   // value: T.string,
   value: T.oneOfType([T.string, T.number]),
 };

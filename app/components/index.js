@@ -37,6 +37,17 @@ import DrawerIcon from './DrawerIcon';
 import EmptyList from './EmptyList';
 
 // -- IMPORT --
+import ItemsList from "./ItemsList";
+import LocationsList from "./LocationsList";
+import SettingsList from "./SettingsList";
+import LoadsList from "./LoadsList";
+import TrucksList from "./TrucksList";
+import StaffsList from "./StaffsList";
+import TransportationsList from "./TransportationsList";
+import VendorsList from "./VendorsList";
+import DriversList from "./DriversList";
+import BrokersList from "./BrokersList";
+import CustomersList from "./CustomersList";
   
 export {
   ColorPicker,
@@ -77,4 +88,15 @@ export {
   DrawerIcon,
   EmptyList,
   // -- LIST --
+	ItemsList,
+	LocationsList,
+	SettingsList,
+	LoadsList,
+	TrucksList,
+	StaffsList,
+	TransportationsList,
+	VendorsList,
+	DriversList,
+	BrokersList,
+	CustomersList,
 };

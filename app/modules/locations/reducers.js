@@ -3,7 +3,7 @@ import types from './types';
 import { defaultLocations } from '../../constants/locations';
 import { insert, insertAll, update, removeId } from '../../utils/stateHelper';
 
-const createLocation = ({ name, contactName,/*-- ADD PROPS --*/ }) => ({ name, contactName,/*-- ADD PROPS --*/ });
+const createLocation = ({ name, city, state, address,/*-- ADD PROPS --*/ }) => ({ name, city, state, address,/*-- ADD PROPS --*/ });
 
 const initialState = insertAll({}, defaultLocations);
 

@@ -1,68 +1,61 @@
 import React from 'react';
 import T from 'prop-types';
-import { Text, View } from 'react-native';
-import { Subtitle, Select, ScreenWrapper, Icon, Button } from '../../components';
-
-import currencies from '../../constants/currencies';
-
+import ActionButton from 'react-native-action-button';
+import {
+  SettingsList,
+  Input,
+  Loading as Loader
+} from '../../components';
 import s from './styles';
-import { dimensions, colors } from '../../styles';
+import { colors } from '../../styles';
+import { View } from 'react-native';
+import { isLoaded } from 'react-redux-firebase'
 
 
 const Settings = ({
-  currency,
-  onChangeCurrency,
-  onGenerateData,
-  onResetData,
-}) => (
-  <ScreenWrapper style={s.container}>
-    <View>
-      <Subtitle leftText="Choose a currency" />
-      <Select
-        isShowScroll={false}
-        options={[currencies.dollar, currencies.euro, currencies.hryvnia, currencies.rupees]}
-        containerStyle={s.selectorContainer}
-        style={s.selector}
-        defaultValue={currency}
-        selectorsWidth={dimensions.containerWidth}
-        onSelect={onChangeCurrency}
-        textStyle={s.selectTextStyle}
-        optionHeight={dimensions.verticalIndent * 2.8}
-      />
-      <View style={s.generateButtonContainer}>
-        <Button
-          onPress={onGenerateData}
-          title="Generate data"
-          titleStyle={s.buttonTitle}
-          containerStyle={s.buttonContainer}
-        />
-        <Button
-          onPress={onResetData}
-          title="Reset data"
-          titleStyle={s.buttonTitle}
-          containerStyle={s.buttonContainer}
-          backgroundColor={colors.red}
-        />
+  settings,
+  goEditSetting,
+  goAddSetting,  
+  search,
+  searchTerm 
+}) => {
+  if (!isLoaded(settings)) {
+    return <View style={s.emptyList}><Loader/></View>
+  }
+  return (
+    <View style={s.container}>
+      
+      <View  style={s.selectors}>
+        <Input placeholder="Search Settings"
+          onChangeText={search}
+          value={searchTerm}
+          containerStyle={s.searchContainer}/>
       </View>
-    </View>
-    <View style={s.secondContainer}>
-      <Text style={s.text}>Made with ❤️ by</Text>
-      <Icon
-        name="apikoLogo"
-        width={80}
-        height={24}
+      <SettingsList
+        settings={ settings }
+        onSelect={goEditSetting }
       />
+
+      <ActionButton
+        buttonColor={colors.green}
+        size={55}
+        spacing={10}
+        offsetX={15}
+        offsetY={15}
+        buttonText="+"
+        onPress={goAddSetting }
+      />
+
     </View>
-
-  </ScreenWrapper>
-);
-
-Settings.propTypes = {
-  currency: T.object,
-  onChangeCurrency: T.func,
-  onGenerateData: T.func,
-  onResetData: T.func,
+  );
 };
 
+Settings.propTypes = {
+  settings: T.array,
+  search: T.func,
+  searchTerm: T.string,
+  goEditSetting: T.func,
+  goAddSetting: T.func
+};
 
 export default Settings;

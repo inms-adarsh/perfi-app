@@ -1,8 +1,8 @@
-import { createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 import ContactsRoutes from '../routes/ContactsRoutes';
 import navOptions from '../../utils/navOptions';
 
-const ContactsNavigator = createStackNavigator(ContactsRoutes, {
+const ContactsNavigator = createBottomTabNavigator(ContactsRoutes, {
   ...navOptions({
     title: 'Contacts',
     icon: 'contact',

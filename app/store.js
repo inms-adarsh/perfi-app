@@ -6,8 +6,8 @@ import reducer from './modules';
 import AsyncStorage from 'redux-persist/es/storage';
 import firebaseConfig from './config/firebaseConfig';
 
-import { reduxFirestore, createFirestoreInstance  } from 'redux-firestore'
-import firebase from 'firebase' 
+import { reduxFirestore, createFirestoreInstance } from 'redux-firestore'
+import firebase from 'firebase'
 
 import 'firebase/firestore' // <- needed if using firestore
 import 'firebase/functions' // <- needed if using httpsCallable
@@ -20,24 +20,31 @@ firebase.firestore() // <- needed if using firestore
 const config = {
   key: 'root',
   whitelist: [
-    'settings',
+    //'settings',
     'accounts',
     'categories',
     'transactions',
     'transfers',
     // -- LIST --
-		'contacts',
+		'items',
 		'locations',
-		'drivers',
-		'appliances',
+		'settings',
+    'loads',
+    'trucks',
+    'staffs',
+    'transportations',
+    'vendors',
+    'drivers',
+    'brokers',
+    'customers',
   ],
   storage: AsyncStorage,
 };
 
 const createReducer = (asyncReducers) => {
-    var reducers = Object.assign({}, reducer, asyncReducers);
-    var appReducer = combineReducers(reducers)
-    return persistReducer(config, appReducer);
+  var reducers = Object.assign({}, reducer, asyncReducers);
+  var appReducer = combineReducers(reducers)
+  return persistReducer(config, appReducer);
 }
 
 
@@ -71,14 +78,13 @@ const { persistor, store } = configureStore();
 store.asyncReducers = {};
 
 export const injectReducer = (key, reducer) => {
-    if ( store.asyncReducers[key] )
-    {
-        return;
-    }
-    store.asyncReducers[key] = reducer;
-    store.replaceReducer(createReducer(store.asyncReducers));
-    store.persistor.persist();
-    return store;
+  if (store.asyncReducers[key]) {
+    return;
+  }
+  store.asyncReducers[key] = reducer;
+  store.replaceReducer(createReducer(store.asyncReducers));
+  store.persistor.persist();
+  return store;
 };
 
 export const rrfProps = {

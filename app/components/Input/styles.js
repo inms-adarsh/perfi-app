@@ -8,9 +8,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: verticalIndent * 2.8,
-    paddingLeft: indent,
+   // paddingLeft: indent,
     borderColor: colors.grey,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderRadius: 4,
   },
   input: {

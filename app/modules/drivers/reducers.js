@@ -3,7 +3,7 @@ import types from './types';
 import { defaultDrivers } from '../../constants/drivers';
 import { insert, insertAll, update, removeId } from '../../utils/stateHelper';
 
-const createDriver = ({ name, type,/*-- ADD PROPS --*/ }) => ({ name, type,/*-- ADD PROPS --*/ });
+const createDriver = ({ name, phone, address, type,/*-- ADD PROPS --*/ }) => ({ name, phone, address, type,/*-- ADD PROPS --*/ });
 
 const initialState = insertAll({}, defaultDrivers);
 

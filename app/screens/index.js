@@ -8,7 +8,7 @@ import Categories from './Categories';
 import CategoryEditor from './CategoryEditor';
 import Calculator from './Calculator';
 
-import Settings from './Settings';
+//import Settings from './Settings';
 import Trends from './Trends';
 import TransferEditor from './TransferEditor';
 import TransactionDetail from './TransactionDetail';
@@ -18,24 +18,68 @@ import OnBoarding from './OnBoarding';
 import LoginPage from './Login';
 import RegisterPage from './Register';
 // -- IMPORT --
-export {  
-  Accounts,
-  AccountEditor,
-  Transactions,
-  TransactionsStatistics,
-  TransactionEditor,
-  AccountDetail,
-  Categories,
-  CategoryEditor,
-  Calculator,
-  TransactionDetail,
-  Settings,
-  Trends,
-  TransferEditor,
-  TransferDetail,
-  Favourites,
-  OnBoarding,
-  LoginPage,
-  RegisterPage,
-  // -- LIST --
+import ItemEditor from "./ItemEditor";
+import Items from "./Items";
+import LocationEditor from "./LocationEditor";
+import Locations from "./Locations";
+import SettingEditor from "./SettingEditor";
+import Settings from "./Settings";
+import LoadEditor from "./LoadEditor";
+import Loads from "./Loads";
+import TruckEditor from "./TruckEditor";
+import Trucks from "./Trucks";
+import StaffEditor from "./StaffEditor";
+import Staffs from "./Staffs";
+import TransportationEditor from "./TransportationEditor";
+import Transportations from "./Transportations";
+import VendorEditor from "./VendorEditor";
+import Vendors from "./Vendors";
+import DriverEditor from "./DriverEditor";
+import Drivers from "./Drivers";
+import BrokerEditor from "./BrokerEditor";
+import Brokers from "./Brokers";
+import CustomerEditor from "./CustomerEditor";
+import Customers from "./Customers";
+export {
+	Accounts,
+	AccountEditor,
+	Transactions,
+	TransactionsStatistics,
+	TransactionEditor,
+	AccountDetail,
+	Categories,
+	CategoryEditor,
+	Calculator,
+	TransactionDetail,
+	// Settings,
+	Trends,
+	TransferEditor,
+	TransferDetail,
+	Favourites,
+	OnBoarding,
+	LoginPage,
+	RegisterPage,
+	// -- LIST --
+	ItemEditor,
+	Items,
+	LocationEditor,
+	Locations,
+	SettingEditor,
+	Settings,
+	LoadEditor,
+	Loads,
+	TruckEditor,
+	Trucks,
+	StaffEditor,
+	Staffs,
+	TransportationEditor,
+	Transportations,
+	VendorEditor,
+	Vendors,
+	DriverEditor,
+	Drivers,
+	BrokerEditor,
+	Brokers,
+	CustomerEditor,
+	Customers,
 };

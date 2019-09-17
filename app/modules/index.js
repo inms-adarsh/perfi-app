@@ -5,8 +5,18 @@ import categories from './categories';
 import transactions from './transactions';
 import transfers from './transfers';
 import navigator from './navigator';
-import settings from './settings';
 // -- IMPORT --
+import items from "./items";
+import locations from "./locations";
+import settings from "./settings";
+import loads from "./loads";
+import trucks from "./trucks";
+import staffs from "./staffs";
+import transportations from "./transportations";
+import vendors from "./vendors";
+import drivers from "./drivers";
+import brokers from "./brokers";
+import customers from "./customers";
 import { firebaseReducer } from 'react-redux-firebase'
 
 import { firestoreReducer } from 'redux-firestore'
@@ -18,10 +28,21 @@ const appReducer = {
   categories,
   transactions,
   transfers,
-  settings,
+ // settings,
   firebase: firebaseReducer,
   firestore:firestoreReducer,
   // -- LIST --
+	items,
+	locations,
+	settings,
+	loads,
+	trucks,
+	staffs,
+	transportations,
+	vendors,
+	drivers,
+	brokers,
+	customers,
 };
 
 

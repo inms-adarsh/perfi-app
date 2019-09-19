@@ -3,7 +3,7 @@ import types from './types';
 import { defaultLoads } from '../../constants/loads';
 import { insert, insertAll, update, removeId } from '../../utils/stateHelper';
 
-const createLoad = ({ name, customer, broker, consignor, consignee, deliveryAddress, customerType, transportation, carrier, gstBy, freightBy, fromLocation, toLocation, goodsValue, eWayBill, totalQuantity, quantityUnit, ratePerUnit, freight, hamali, haltage, otherCharges, totalFreight, gst, insuranceCompany, insuredAmount, driver, truck, advancePaid, toPay,/*-- ADD PROPS --*/ }) => ({ name, customer, broker, consignor, consignee, deliveryAddress, customerType, transportation, carrier, gstBy, freightBy, fromLocation, toLocation, goodsValue, eWayBill, totalQuantity, quantityUnit, ratePerUnit, freight, hamali, haltage, otherCharges, totalFreight, gst, insuranceCompany, insuredAmount, driver, truck, advancePaid, toPay,/*-- ADD PROPS --*/ });
+const createLoad = ({ name, customer, broker, consignor, consignee, deliveryAddress, customerType, transportation, carrier, gstBy, freightBy, fromLocation, toLocation, goodsValue, eWayBill, totalQuantity, quantityUnit, ratePerUnit, freight, hamali, haltage, otherCharges, totalFreight, gst, insuranceCompany, insuredAmount, driver, truck, advancePaid, toPay, date,/*-- ADD PROPS --*/ }) => ({ name, customer, broker, consignor, consignee, deliveryAddress, customerType, transportation, carrier, gstBy, freightBy, fromLocation, toLocation, goodsValue, eWayBill, totalQuantity, quantityUnit, ratePerUnit, freight, hamali, haltage, otherCharges, totalFreight, gst, insuranceCompany, insuredAmount, driver, truck, advancePaid, toPay, date,/*-- ADD PROPS --*/ });
 
 const initialState = insertAll({}, defaultLoads);
 

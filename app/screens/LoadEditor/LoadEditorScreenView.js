@@ -16,6 +16,7 @@ import {
   EmptyList,
   SegmentedControl,
   TabContainer,
+  DatePicker
 } from '../../components';
 import s from './styles';
 import LoadItem from './Item';
@@ -48,11 +49,19 @@ const LoadEditor = (props) => {
         <View style={s.root}>
           <Input
             isValid
-            placeholder="Load no"
+            placeholder="Load no#"
             value={loadNo}
             onChangeText={setLoadNo}
             containerStyle={s.inputContainer}
             keyboardType="numeric"
+          />
+         
+          <DatePicker
+            isSelected
+            placeholder="Date"
+            date={props.date}
+            onSelectDate={val => props.setDate(val)}
+            containerStyle={s.inputContainer}
           />
           <SegmentedControl
             values={tabs}
@@ -63,7 +72,7 @@ const LoadEditor = (props) => {
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={0}
-            topOffset={105}
+            topOffset={150}
           >
             <ScrollView>
               <View>
@@ -128,7 +137,7 @@ const LoadEditor = (props) => {
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={1}
-            topOffset={105}
+            topOffset={150}
           >
             <ScrollView>
               <FormInput
@@ -177,7 +186,7 @@ const LoadEditor = (props) => {
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={2}
-            topOffset={105}
+            topOffset={150}
           >
             <ScrollView>
               <View style={[s.container]}>
@@ -367,7 +376,7 @@ const LoadEditor = (props) => {
           <TabContainer
             selectedTabIndex={selectedTabIndex}
             tabIndex={3}
-            topOffset={105}
+            topOffset={150}
           >
             <View>
               <Input
@@ -438,6 +447,8 @@ LoadEditor.propTypes = {
   items: T.array,
   onDeleteItem: T.func,
   // -- ADD PROPS --
+  date: T.any,
+  setDate: T.func,
   toPay: T.number,
   setToPay: T.func,
   advancePaid: T.number,

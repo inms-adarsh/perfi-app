@@ -3,10 +3,10 @@ import { Settings, SettingEditor,/*-- IMPORT SCREENS --*/ } from '../../screens'
 import headerOptions from '../../utils/stackHeaderOptions';
 
 const Routes = {
-  [screens.Settings]: {
-    screen: Settings,
-    navigationOptions: headerOptions({ title: 'Settings' }),
-  },
+  // [screens.Settings]: {
+  //   screen: Settings,
+  //   navigationOptions: headerOptions({ title: 'Settings' }),
+  // },
   [screens.SettingEditor]: {
     screen: SettingEditor,
   },

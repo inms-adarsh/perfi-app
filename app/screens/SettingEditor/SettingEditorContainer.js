@@ -66,11 +66,11 @@ import {
         }, (e) => {
           ToastAndroid.show('Error saving setting! Please try again', ToastAndroid.BOTTOM);
         });
-        if(listUrl) {
-          navigation.navigate(listUrl);
-        } else {
-          navigation.goBack(null);
-        }
+        // if(listUrl) {
+        //   navigation.navigate(listUrl);
+        // } else {
+        //   navigation.goBack(null);
+        // }
       },
       /*-- ADD SELECT PROPS --*/
       /*-- ADD FORMINPUT HANDLER --*/

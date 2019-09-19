@@ -4,14 +4,14 @@ import {
 } from 'recompose';
 import R from 'ramda';
 import { connect } from 'react-redux';
-import { Keyboard, ToastAndroid, Alert, } from 'react-native';
+import { Keyboard, ToastAndroid, } from 'react-native';
 import LoadEditor from './LoadEditorScreenView';
 import { getParam } from '../../utils/navHelpers';
 import { firestoreConnect } from 'react-redux-firebase'
 /*-- IMPORT SCREENS --*/
 
 const screenProp = (propName, def) => R.pathOr(def, ['load', propName]);
-const requiredProps = ['loadNo', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay',/*-- ADD PROPS --*/];
+const requiredProps = ['loadNo', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/];
 const isFieldsFilled = R.pipe(R.props, R.none(R.isNil));
 
 const enhance = compose(
@@ -33,6 +33,7 @@ const enhance = compose(
   withState('items', 'setItems', []),
   withState('loadNo', 'setLoadNo', screenProp('currentLoadNumber', '')),
   /*-- ADD STATE PROPS --*/
+		withState('date', 'setDate', new Date()),
   withState('toPay', 'setToPay', screenProp('toPay', '')),
   withState('advancePaid', 'setAdvancePaid', screenProp('advancePaid', '')),
   withState('truckName', 'setTruckName', null),
@@ -135,11 +136,11 @@ const enhance = compose(
     onSubmit: ({
       navigation, firestore, auth, profile, listUrl, load, onClose, ...props
     }) => () => {
-      Alert.alert('Hi I am called');
       Keyboard.dismiss();
-      const editedProps = R.pick(['loadNo', 'items', 'customer', 'broker', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'transportation', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay',/*-- ADD PROPS --*/], props);
+      const editedProps = R.pick(['loadNo', 'items', 'customer', 'broker', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'transportation', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/], props);
       const propsToSubmit = load ? Object.assign(load, editedProps) : editedProps;
       let promise = {};
+      propsToSubmit.date = propsToSubmit.date.toString();
       if (load) {
         Object.assign(propsToSubmit, {
           updatedByUser: auth.uid,
@@ -335,11 +336,12 @@ const enhance = compose(
         setDriver,
         setSelectedTruck,
         setTruck,
+        setDate,
         /*-- SET FORMINPUT VALUE --*/
       } = this.props;
 
       if (load) {
-        const { loadNo, customer, broker, consignor, consignee, transportation, fromLocation, toLocation, items, driver, truck,/*-- FETCH PROPS --*/ } = load;
+        const { date, loadNo, customer, broker, consignor, consignee, transportation, fromLocation, toLocation, items, driver, truck,/*-- FETCH PROPS --*/ } = load;
         setLoadNo(loadNo);
         setSelectedCustomer(true);
         setCustomer(customer);
@@ -360,6 +362,7 @@ const enhance = compose(
         setDriver(driver);
         setSelectedTruck(true);
         setTruck(truck);
+        setDate(new Date(date));
         /*-- SET PROPS --*/
       }
       navigation.setParams({ onSubmit: onSubmit });
@@ -388,8 +391,6 @@ const enhance = compose(
         setSelectedToLocation,
         setToLocation,
         selectedToLocation: newToLocation,
-        items,
-        setItems,
         setSelectedDriver,
         setDriver,
         selectedDriver: newDriver,

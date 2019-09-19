@@ -27,7 +27,7 @@ import {
     withState('name', 'setName', screenProp('name', '')),
     /*-- ADD STATE PROPS --*/
 		withState('packet', 'setPacket', screenProp('packet', '')),
-		withState('unit', 'setUnit', screenProp('unit', '')),
+		withState('unit', 'setUnit', 'tons'),
 		withState('weight', 'setWeight', screenProp('weight', '')),
 
     /*-- ADD NAV PROPS --*/
@@ -75,7 +75,7 @@ import {
     }),
     withPropsOnChange(
       requiredProps,
-      props => ({ isValid: isFieldsNotEmpty(requiredProps, props) && isFieldsFilled(['unit'], props) }),
+      props => ({ isValid: isFieldsNotEmpty(requiredProps, props)}),
     ),    
     lifecycle({
       componentDidMount() {

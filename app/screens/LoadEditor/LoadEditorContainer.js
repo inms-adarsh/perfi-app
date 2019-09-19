@@ -50,7 +50,7 @@ const enhance = compose(
   withState('hamali', 'setHamali', screenProp('hamali', '')),
   withState('freight', 'setFreight', screenProp('freight', '')),
   withState('ratePerUnit', 'setRatePerUnit', screenProp('ratePerUnit', '')),
-  withState('quantityUnit', 'setQuantityUnit', screenProp('quantityUnit', '')),
+  withState('quantityUnit', 'setQuantityUnit', screenProp('quantityUnit', 'tons')),
   withState('totalQuantity', 'setTotalQuantity', screenProp('totalQuantity', '')),
   withState('eWayBill', 'setEWayBill', screenProp('eWayBill', '')),
   withState('goodsValue', 'setGoodsValue', screenProp('goodsValue', '')),
@@ -62,9 +62,9 @@ const enhance = compose(
   withState('isSelectedFromLocation', 'setSelectedFromLocation', false),
   withState('fromLocation', 'setFromLocation', null),
 
-  withState('freightBy', 'setFreightBy', screenProp('freightBy', '')),
+  withState('freightBy', 'setFreightBy', screenProp('freightBy', 'consignor')),
 
-  withState('gstBy', 'setGstBy', screenProp('gstBy', '')),
+  withState('gstBy', 'setGstBy', screenProp('gstBy', 'consignor')),
 
   withState('transportationName', 'setTransportationName', null),
   withState('isSelectedTransportation', 'setSelectedTransportation', false),

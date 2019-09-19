@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
     marginBottom: verticalIndent,
   },
   inlineInput: {
-    flex: 0.7
+    flex: 0.6
   },
   inlineList: {
-    flex: 0.3
+    flex: 0.4
   },
   inputContainer: {
     marginBottom: dimensions.verticalIndent

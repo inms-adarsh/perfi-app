@@ -13,9 +13,8 @@ const s = StyleSheet.create({
         flexDirection: 'row',
     },
     mainContentContainer: {
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         flex: 1,
-        alignItems: 'center'
     },
 
     icon: {
@@ -39,7 +38,8 @@ const Item = ({
             style={s.container}
         >
             <View style={s.mainContentContainer}>
-                <Text>{item.name}</Text>
+                <Text>Item name: {item.name}</Text>
+                <Text>Weight: {item.weight} {item.unit}</Text>
             </View>
             <View style={s.icon}>
                 <TouchableItem

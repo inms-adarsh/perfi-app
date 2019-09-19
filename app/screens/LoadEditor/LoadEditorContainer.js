@@ -4,7 +4,7 @@ import {
 } from 'recompose';
 import R from 'ramda';
 import { connect } from 'react-redux';
-import { Keyboard, ToastAndroid, } from 'react-native';
+import { Keyboard, ToastAndroid, Alert, } from 'react-native';
 import LoadEditor from './LoadEditorScreenView';
 import { getParam } from '../../utils/navHelpers';
 import { firestoreConnect } from 'react-redux-firebase'
@@ -16,19 +16,22 @@ const isFieldsFilled = R.pipe(R.props, R.none(R.isNil));
 
 const enhance = compose(
   firestoreConnect(),
-  connect((state, props) => ({
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
-    currentLoadNumber: state.firebase.currentLoadNumber || 1
-  })),
-  firestoreConnect((props) => [{ collection: 'tenants', doc: props.profile.tenantId, subcollections: [{ collection: 'currentLoadNumber' }], storeAs: 'currentLoadNumber' }]),
+  connect((state, props) => {
+    const currentLoadNumber = state.firestore.ordered.recentLoadNumber && state.firestore.ordered.recentLoadNumber[0] && state.firestore.ordered.recentLoadNumber[0].currentLoadNumber;
+    return {
+      auth: state.firebase.auth,
+      profile: state.firebase.profile,
+      currentLoadNumber
+    }
+  }),
+  firestoreConnect((props) => [{ collection: 'tenants', doc: props.profile.tenantId, subcollections: [{ collection: 'currentLoadNumber' }], storeAs: 'recentLoadNumber' }]),
   withProps(({ navigation }) => ({ backUrl: getParam('backUrl')(navigation) })),
   withProps(({ navigation }) => ({ listUrl: getParam('listUrl')(navigation) })),
   withProps(({ navigation }) => ({ load: getParam('load')(navigation) })),
 
 
-  withState('items', 'setItems', screenProp('items', [])),
-  withState('loadNo', 'setLoadNo', screenProp('currentLoadNumber', 1)),
+  withState('items', 'setItems', []),
+  withState('loadNo', 'setLoadNo', screenProp('currentLoadNumber', '')),
   /*-- ADD STATE PROPS --*/
   withState('toPay', 'setToPay', screenProp('toPay', '')),
   withState('advancePaid', 'setAdvancePaid', screenProp('advancePaid', '')),
@@ -53,11 +56,11 @@ const enhance = compose(
   withState('goodsValue', 'setGoodsValue', screenProp('goodsValue', '')),
   withState('toLocationName', 'setToLocationName', null),
   withState('isSelectedToLocation', 'setSelectedToLocation', false),
-  withState('tolocation', 'setToLocation', null),
+  withState('toLocation', 'setToLocation', null),
 
   withState('fromLocationName', 'setFromLocationName', null),
   withState('isSelectedFromLocation', 'setSelectedFromLocation', false),
-  withState('fromlocation', 'setFromLocation', null),
+  withState('fromLocation', 'setFromLocation', null),
 
   withState('freightBy', 'setFreightBy', screenProp('freightBy', '')),
 
@@ -98,7 +101,7 @@ const enhance = compose(
   withProps(({ navigation }) => ({ selectedBroker: getParam('broker')(navigation) })),
   withProps(({ navigation }) => ({ selectedCustomer: getParam('customer')(navigation) })),
   withProps(({ navigation }) => ({ item: getParam('item')(navigation) })),
-  withProps(({ load, currentLoadNumber, customer, broker, consignor, consignee, transportation, fromLocation, toLocation, driver, truck,/*-- FETCH PROPS --*/ }) => ({
+  withProps(({ load, currentLoadNumber, item, items, customer, broker, consignor, consignee, transportation, fromLocation, toLocation, driver, truck,/*-- FETCH PROPS --*/ }) => ({
     /*-- ADD LOOKUP PROPS --*/
     truckName: R.pathOr('Select Truck', ['carrierNo'], truck),
     driverName: R.pathOr('Select Driver', ['name'], driver),
@@ -109,11 +112,20 @@ const enhance = compose(
     consignorName: R.pathOr('Select Consignor', ['name'], consignor),
     brokerName: R.pathOr('Select Broker', ['name'], broker),
     customerName: R.pathOr('Select Customer', ['name'], customer),
-    currentLoadNumber: R.pathOr(currentLoadNumber, ['loadNo'], load)
+    loadNo: R.pathOr(currentLoadNumber + 1, ['loadNo'], load, ''),
   })),
-  withPropsOnChange(['item'], ({ item, items }) => ({
-    items: item ? [...items, item] : [],
-  })),
+  withProps(({ item, items }) => {
+    if (item && items) {
+      return ({
+        items: [...items, item]
+      })
+    }
+  }),
+  // withPropsOnChange(['item'], ({ item, items }) => {
+  //   console.log(items)
+  //   ({
+  //   items: [...items, item],
+  // })),
   // withProps(props => ({
   //   items: props.items? R.concat(props.items, props.item): [],
   // })),
@@ -123,8 +135,9 @@ const enhance = compose(
     onSubmit: ({
       navigation, firestore, auth, profile, listUrl, load, onClose, ...props
     }) => () => {
+      Alert.alert('Hi I am called');
       Keyboard.dismiss();
-      const editedProps = R.pick(['loadNo', 'customer', 'broker', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'transportation', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay',/*-- ADD PROPS --*/], props);
+      const editedProps = R.pick(['loadNo', 'items', 'customer', 'broker', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'transportation', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay',/*-- ADD PROPS --*/], props);
       const propsToSubmit = load ? Object.assign(load, editedProps) : editedProps;
       let promise = {};
       if (load) {
@@ -141,6 +154,7 @@ const enhance = compose(
           createdDate: new Date()
         });
         promise = firestore.add('tenants/' + profile.tenantId + '/loads', propsToSubmit)
+        firestore.set('tenants/' + profile.tenantId + '/currentLoadNumber/currentLoadNumber', { currentLoadNumber: Number(propsToSubmit.loadNo) });
       }
 
       promise.then(() => {
@@ -255,11 +269,11 @@ const enhance = compose(
         backUrl: routeName
       })
     },
-    onChangeTotalQuantity: ({setTotalQuantity, ratePerUnit, setFreight}) => (val) => {
-        setTotalQuantity(val);
-        setFreight(val * (ratePerUnit || 0));
+    onChangeTotalQuantity: ({ setTotalQuantity, ratePerUnit, setFreight }) => (val) => {
+      setTotalQuantity(val);
+      setFreight(val * (ratePerUnit || 0));
     },
-    onChangeRatePerUnit: ({totalQuantity, setRatePerUnit, setFreight}) => (val) => {
+    onChangeRatePerUnit: ({ totalQuantity, setRatePerUnit, setFreight }) => (val) => {
       setRatePerUnit(val);
       setFreight(val * (totalQuantity || 0));
     },
@@ -382,7 +396,17 @@ const enhance = compose(
         /*-- SET FORMINPUT UPDATED VALUE --*/
       } = this.props;
       const {
-        items: prevItems, customer: prevCustomer, broker: prevBroker, consignor: prevConsignor, consignee: prevConsignee, transportation: prevTransportation, fromLocation: prevFromLocation, toLocation: prevToLocation, driver: prevDriver, truck: prevTruck,/*-- FETCH PREV FORMINPUT VALUE --*/
+        items: prevItems,
+        customer: prevCustomer,
+        broker: prevBroker,
+        consignor: prevConsignor,
+        consignee: prevConsignee,
+        transportation: prevTransportation,
+        fromLocation: prevFromLocation,
+        toLocation: prevToLocation,
+        driver: prevDriver,
+        truck: prevTruck,
+        /*-- FETCH PREV FORMINPUT VALUE --*/
       } = prevProps;
 
 
@@ -416,9 +440,9 @@ const enhance = compose(
         setSelectedToLocation(true);
         setToLocation(newToLocation);
       }
-      if (items && items !== prevItems) {
-        setItems(items);
-      }
+      // if (items && items !== prevItems) {
+      //   setItems(items);
+      // }
       if (newDriver && newDriver !== prevDriver) {
         setSelectedDriver(true);
         setDriver(newDriver);

@@ -11,7 +11,7 @@ import {
   /*-- IMPORT SCREENS --*/
   
   const screenProp = (propName, def) => R.pathOr(def, ['item', propName]); 
-  const requiredProps = ['name', 'weight', 'unit', 'rate', 'freight', 'packet',/*-- ADD PROPS --*/];
+  const requiredProps = ['name', 'weight',/*-- ADD PROPS --*/];
   const isFieldsFilled = R.pipe(R.props, R.none(R.isNil));
   const isFieldsNotEmpty = R.pipe(R.props, R.none(R.isEmpty));
   const enhance = compose(
@@ -27,8 +27,6 @@ import {
     withState('name', 'setName', screenProp('name', '')),
     /*-- ADD STATE PROPS --*/
 		withState('packet', 'setPacket', screenProp('packet', '')),
-		withState('freight', 'setFreight', screenProp('freight', '')),
-		withState('rate', 'setRate', screenProp('rate', '')),
 		withState('unit', 'setUnit', screenProp('unit', '')),
 		withState('weight', 'setWeight', screenProp('weight', '')),
 
@@ -42,7 +40,7 @@ import {
         navigation, firestore, auth, profile, backUrl, item, onClose, ...props
       }) => () => {
         Keyboard.dismiss();
-        const editedProps = R.pick(['name', 'weight', 'unit', 'rate', 'freight', 'packet',/*-- ADD PROPS --*/], props);
+        const editedProps = R.pick(['name', 'weight', 'unit', 'packet',/*-- ADD PROPS --*/], props);
         const propsToSubmit = item ? Object.assign(item, editedProps) : editedProps;
         let promise = {};
         if( item) {
@@ -77,7 +75,7 @@ import {
     }),
     withPropsOnChange(
       requiredProps,
-      props => ({ isValid: isFieldsNotEmpty(requiredProps, props) && isFieldsFilled(requiredProps, props) }),
+      props => ({ isValid: isFieldsNotEmpty(requiredProps, props) && isFieldsFilled(['unit'], props) }),
     ),    
     lifecycle({
       componentDidMount() {

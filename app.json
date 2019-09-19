@@ -2,6 +2,11 @@
   "expo": {
     "name": "Perfi",
     "scheme": "perfi",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "description": "The best money manager",
     "slug": "perfi",
     "privacy": "public",

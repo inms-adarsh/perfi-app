@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Picker } from 'react-native';
 import T from 'prop-types';
 import { getParam } from '../../utils/navHelpers';
 import DeleteButton from './DeleteButton';

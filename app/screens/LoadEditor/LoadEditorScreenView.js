@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Picker, Text, Button as AddButton } from 'react-native';
+import { View, ScrollView, Picker, Text, FlatList, Button as AddButton } from 'react-native';
 import T from 'prop-types';
 import { getParam } from '../../utils/navHelpers';
 import DeleteButton from './DeleteButton';
@@ -12,14 +12,13 @@ import {
   ScreenWrapper,
   HeaderTitle,
   FormInput,
-  FlatList,
   Separator,
   EmptyList,
   SegmentedControl,
   TabContainer,
 } from '../../components';
 import s from './styles';
-import Item from './Item';
+import LoadItem from './Item';
 
 const tabs = ['Customer', 'Location', 'Freight', 'Insurance'];
 
@@ -38,7 +37,10 @@ const LoadEditor = (props) => {
   } = props;
   /* eslint-disable react/prop-types */
   const _renderItem = ({ item }) => (
-    <View><Text>{item.name}</Text></View>
+    <LoadItem
+      item={item}
+      onSelect={onSelect}
+    />
   );
   return (
     <View style={s.root}>
@@ -50,6 +52,7 @@ const LoadEditor = (props) => {
             value={loadNo}
             onChangeText={setLoadNo}
             containerStyle={s.inputContainer}
+            keyboardType="numeric"
           />
           <SegmentedControl
             values={tabs}
@@ -177,27 +180,29 @@ const LoadEditor = (props) => {
             topOffset={105}
           >
             <ScrollView>
-              <View>
-                <Text style={[s.label]}>Freight Paid By</Text>
-                <Picker
-                  selectedValue={props.freightBy}
-                  style={s.selector}
-                  onValueChange={props.onSelectFreightBy}>
-                  <Picker.Item label="Consignor" value="consignor" />
-                  <Picker.Item label="Consignee" value="consignee" />
-                  <Picker.Item label="Broker" value="broker" />
-                </Picker>
-              </View>
-              <View>
-                <Text style={[s.label]}>GST Paid By</Text>
-                <Picker
-                  selectedValue={props.gstBy}
-                  style={s.selector}
-                  onValueChange={props.onSelectGstBy}>
-                  <Picker.Item label="Consignor" value="consignor" />
-                  <Picker.Item label="Consignee" value="consignee" />
-                  <Picker.Item label="Transporter" value="transporter" />
-                </Picker>
+              <View style={[s.container]}>
+                <View style={s.flex50}>
+                  <Text style={[s.label]}>Freight Paid By</Text>
+                  <Picker
+                    selectedValue={props.freightBy}
+                    style={s.selector}
+                    onValueChange={props.onSelectFreightBy}>
+                    <Picker.Item label="Consignor" value="consignor" />
+                    <Picker.Item label="Consignee" value="consignee" />
+                    <Picker.Item label="Broker" value="broker" />
+                  </Picker>
+                </View>
+                <View style={s.flex50}>
+                  <Text style={[s.label]}>GST Paid By</Text>
+                  <Picker
+                    selectedValue={props.gstBy}
+                    style={s.selector}
+                    onValueChange={props.onSelectGstBy}>
+                    <Picker.Item label="Consignor" value="consignor" />
+                    <Picker.Item label="Consignee" value="consignee" />
+                    <Picker.Item label="Transporter" value="transporter" />
+                  </Picker>
+                </View>
               </View>
               <View>
                 <Text style={[s.label]}>Add Items</Text>
@@ -225,7 +230,6 @@ const LoadEditor = (props) => {
                 isValid
                 placeholder="E-Way Bill No"
                 label="E-Way Bill No"
-                keyboardType='numeric'
                 value={props.eWayBill}
                 onChangeText={props.setEWayBill}
                 containerStyle={s.inputContainer}
@@ -303,7 +307,7 @@ const LoadEditor = (props) => {
                 onChangeText={props.setOtherCharges}
                 containerStyle={s.inputContainer}
                 suffix="₹"
-                
+
               />
               <View style={[s.container]}>
                 <Input
@@ -411,9 +415,11 @@ LoadEditor.navigationOptions = ({ navigation }) => ({
   headerTitle:
     <HeaderTitle title={getParam('load')(navigation) ? 'Edit Load' : 'New Load'} />,
   headerRight: (
-    <View>
-      <SaveButton
+    <View style={[s.saveButton]}>
+      <AddButton
         navigation={navigation}
+        onPress={navigation.getParam('onSubmit')}
+        title='Save'
       />
       <DeleteButton navigation={navigation} />
     </View>

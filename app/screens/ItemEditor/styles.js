@@ -21,7 +21,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: verticalIndent,
   },
-
+  inlineInput: {
+    flex: 0.7
+  },
+  inlineList: {
+    flex: 0.3
+  },
   inputContainer: {
     marginBottom: dimensions.verticalIndent
   },
@@ -38,7 +43,12 @@ const styles = StyleSheet.create({
     marginRight: indent,
     paddingTop: fontSizes.verySmall,
   },
-
+  label: {
+    paddingBottom: indent / 2,
+    paddingTop: indent / 2,
+    fontSize: fontSizes.medium,
+    fontWeight: '700',
+  },
 });
 
 export default styles;

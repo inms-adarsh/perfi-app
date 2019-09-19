@@ -58,7 +58,7 @@ const enhancer = compose(
   applyMiddleware(thunk),
   devToolsEnhancer({ realtime: true }),
   // reactReduxFirebase(firebase, reduxFirebaseConfig),
-  reduxFirestore(firebase, reduxFirebaseConfig)
+  reduxFirestore(firebase, reduxFirebaseConfig),
 );
 
 const configureStore = () => {
@@ -66,6 +66,7 @@ const configureStore = () => {
     createReducer(),
     undefined,
     enhancer,
+    
   );
 
   const persistor = persistStore(store);

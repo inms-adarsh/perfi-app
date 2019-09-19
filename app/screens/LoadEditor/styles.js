@@ -21,11 +21,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: verticalIndent,
   },
+  saveButton: {
+    flexDirection: 'row',
+    paddingHorizontal: indent
+  },
   inlineInput: {
     flex: 0.7
   },
   inlineList: {
     flex: 0.3
+  },
+  flex50: {
+    flex: 0.5
   },
   inputContainer: {
     marginBottom: dimensions.verticalIndent
@@ -49,7 +56,11 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.medium,
     fontWeight: '700',
   },
-
+  mainContentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
+  }
 });
 
 export default styles;

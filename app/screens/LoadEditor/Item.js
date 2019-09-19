@@ -3,7 +3,7 @@ import T from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import { pure } from 'recompose';
 import { TouchableItem, RoundIcon } from '../../components';
-import { dimensions, colors, fontSizes, scalingUtils } from '../../styles';
+import { dimensions, colors, fontSizes,fontWeights, scalingUtils } from '../../styles';
 
 
 const s = StyleSheet.create({
@@ -14,7 +14,8 @@ const s = StyleSheet.create({
     },
     mainContentContainer: {
         justifyContent: 'flex-start',
-        flex: 1
+        flex: 1,
+        alignItems: 'center'
     },
 
     icon: {
@@ -23,11 +24,6 @@ const s = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    title: {
-        color: colors.greyVeryDarker,
-        fontSize: fontSizes.small,
-        // fontWeight: fontWeights.extraBold,
-    },
 
     border: {
         borderWidth: 1,
@@ -37,29 +33,31 @@ const s = StyleSheet.create({
 
 const Item = ({
     item,
-    onSelect,
+    onDelete,
 }) => (
-        <TouchableItem
+        <View
             style={s.container}
-            onPress={() => onSelect(item)}
         >
             <View style={s.mainContentContainer}>
-                <Text style={s.title}>{item.name}</Text>
+                <Text>{item.name}</Text>
             </View>
             <View style={s.icon}>
-                <RoundIcon
-                    name='delete'
-                    border={s.border}
-                    backgroundColor={colors.white}
-                    tintColor={colors.greyDarker}
-                />
+                <TouchableItem
+                    onPress={() => onDelete(item)}>
+                    <RoundIcon
+                        name='delete'
+                        border={s.border}
+                        backgroundColor={colors.white}
+                        tintColor={colors.greyDarker}
+                    />
+                </TouchableItem>
             </View>
-        </TouchableItem>
+        </View>
     );
 
 Item.propTypes = {
     item: T.object,
-    onSelect: T.func,
+    onDelete: T.func,
 
 };
 

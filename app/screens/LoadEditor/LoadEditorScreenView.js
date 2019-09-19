@@ -31,15 +31,15 @@ const LoadEditor = (props) => {
     addItem,
     navigation,
     items,
-    onSelect,
     selectedTabIndex,
     setSelectedTabIndex,
+    onDeleteItem
   } = props;
   /* eslint-disable react/prop-types */
   const _renderItem = ({ item }) => (
     <LoadItem
       item={item}
-      onSelect={onSelect}
+      onDelete={onDeleteItem}
     />
   );
   return (
@@ -436,7 +436,7 @@ LoadEditor.propTypes = {
   navigation: T.object,
   addItem: T.func,
   items: T.array,
-  onSelect: T.func,
+  onDeleteItem: T.func,
   // -- ADD PROPS --
   toPay: T.number,
   setToPay: T.func,

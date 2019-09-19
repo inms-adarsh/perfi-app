@@ -112,7 +112,7 @@ const enhance = compose(
     consignorName: R.pathOr('Select Consignor', ['name'], consignor),
     brokerName: R.pathOr('Select Broker', ['name'], broker),
     customerName: R.pathOr('Select Customer', ['name'], customer),
-    loadNo: R.pathOr(currentLoadNumber + 1, ['loadNo'], load, ''),
+    loadNo: R.pathOr(currentLoadNumber? currentLoadNumber + 1 : '', ['loadNo'], load, ''),
   })),
   withProps(({ item, items }) => {
     if (item && items) {
@@ -277,6 +277,9 @@ const enhance = compose(
       setRatePerUnit(val);
       setFreight(val * (totalQuantity || 0));
     },
+    onDeleteItem: ({ items, setItems }) => (item) => {
+      setItems(items.filter(el => el !== item ));
+    }
   }),
   withPropsOnChange(
     requiredProps,

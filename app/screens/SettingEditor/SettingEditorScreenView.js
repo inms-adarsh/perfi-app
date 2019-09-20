@@ -42,7 +42,8 @@ const SettingEditor = (props) => {
               isValid
               placeholder="Phone"
               value={ props.phone }
-              onChangeText={ props.setPhone }
+              onChangeText={ props.setPhone }              
+              keyboardType='numeric'
               containerStyle={s.inputContainer}
             />
             <Input

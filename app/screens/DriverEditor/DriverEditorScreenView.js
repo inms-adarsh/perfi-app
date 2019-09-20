@@ -43,7 +43,8 @@ const DriverEditor = (props) => {
               placeholder="Phone"
               value={ props.phone }
               onChangeText={ props.setPhone }
-              containerStyle={s.inputContainer}
+              containerStyle={s.inputContainer}              
+              keyboardType='numeric'
             />
             <Input
               isValid

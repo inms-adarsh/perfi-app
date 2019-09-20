@@ -4,10 +4,11 @@ import {
 } from 'recompose';
 import R from 'ramda';
 import { connect } from 'react-redux';
-import { Keyboard, ToastAndroid, } from 'react-native';
+import { Keyboard, ToastAndroid, Alert } from 'react-native';
 import LoadEditor from './LoadEditorScreenView';
 import { getParam } from '../../utils/navHelpers';
-import { firestoreConnect } from 'react-redux-firebase'
+import { firestoreConnect, firebaseConnect } from 'react-redux-firebase'
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 /*-- IMPORT SCREENS --*/
 
 const screenProp = (propName, def) => R.pathOr(def, ['load', propName]);
@@ -15,6 +16,7 @@ const requiredProps = ['loadNo', 'consignor', 'consignee', 'deliveryAddress', 'c
 const isFieldsFilled = R.pipe(R.props, R.none(R.isNil));
 
 const enhance = compose(
+  firebaseConnect(),
   firestoreConnect(),
   connect((state, props) => {
     const currentLoadNumber = state.firestore.ordered.recentLoadNumber && state.firestore.ordered.recentLoadNumber[0] && state.firestore.ordered.recentLoadNumber[0].currentLoadNumber;
@@ -33,7 +35,7 @@ const enhance = compose(
   withState('items', 'setItems', []),
   withState('loadNo', 'setLoadNo', screenProp('currentLoadNumber', '')),
   /*-- ADD STATE PROPS --*/
-		withState('date', 'setDate', new Date()),
+  withState('date', 'setDate', new Date()),
   withState('toPay', 'setToPay', screenProp('toPay', '')),
   withState('advancePaid', 'setAdvancePaid', screenProp('advancePaid', '')),
   withState('truckName', 'setTruckName', null),
@@ -113,7 +115,7 @@ const enhance = compose(
     consignorName: R.pathOr('Select Consignor', ['name'], consignor),
     brokerName: R.pathOr('Select Broker', ['name'], broker),
     customerName: R.pathOr('Select Customer', ['name'], customer),
-    loadNo: R.pathOr(currentLoadNumber? currentLoadNumber + 1 : '', ['loadNo'], load, ''),
+    loadNo: R.pathOr(currentLoadNumber ? currentLoadNumber + 1 : '', ['loadNo'], load, ''),
   })),
   withProps(({ item, items }) => {
     if (item && items) {
@@ -182,8 +184,11 @@ const enhance = compose(
       setGstBy(val);
     },
 
-    onSelectCustomerType: ({ setCustomerType }) => (val) => {
+    onSelectCustomerType: ({ setCustomerType, setBroker, setTransportation, setCustomer }) => (val) => {
       setCustomerType(val);
+      setBroker('');
+      setCustomer('');
+      setTransportation('');
     },
 
     /*-- ADD FORMINPUT HANDLER --*/
@@ -279,7 +284,25 @@ const enhance = compose(
       setFreight(val * (totalQuantity || 0));
     },
     onDeleteItem: ({ items, setItems }) => (item) => {
-      setItems(items.filter(el => el !== item ));
+      setItems(items.filter(el => el !== item));
+    },
+    generateBilty: ({ firebase, auth }) => async () => {
+      var generateBilty = firebase.functions().httpsCallable('generateBilty');
+      // addMessage({ uid: auth.uid }).then(function (result) {
+      //   // Read result of the Cloud Function.
+      //   var sanitizedMessage = result.data.tenantId;
+      //   Alert.alert(sanitizedMessage);
+      //   // ...
+      // });
+      let options = {
+        html: '<h1>PDF TEST</h1>',
+        fileName: 'test',
+        directory: 'Documents',
+      };
+
+      let file = await RNHTMLtoPDF.convert(options)
+      // console.log(file.filePath);
+      Alert.alert(file.filePath);
     }
   }),
   withPropsOnChange(
@@ -315,6 +338,7 @@ const enhance = compose(
       const {
         navigation,
         onSubmit,
+        generateBilty,
         load,
         setLoadNo,
         setSelectedCustomer,
@@ -366,6 +390,7 @@ const enhance = compose(
         /*-- SET PROPS --*/
       }
       navigation.setParams({ onSubmit: onSubmit });
+      navigation.setParams({ generateBilty: generateBilty });
     },
     componentDidUpdate(prevProps) {
       const {

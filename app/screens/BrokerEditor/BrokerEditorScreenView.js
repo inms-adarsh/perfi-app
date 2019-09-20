@@ -51,6 +51,7 @@ const BrokerEditor = (props) => {
               value={props.phone}
               onChangeText={props.setPhone}
               containerStyle={s.inputContainer}
+              keyboardType='numeric'
             />
             <Input
               isValid

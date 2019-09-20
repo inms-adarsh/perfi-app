@@ -50,6 +50,7 @@ const LoadEditor = (props) => {
           <Input
             isValid
             placeholder="Load no#"
+            prefix="Load no#"
             value={loadNo}
             onChangeText={setLoadNo}
             containerStyle={s.inputContainer}
@@ -429,6 +430,11 @@ LoadEditor.navigationOptions = ({ navigation }) => ({
         navigation={navigation}
         onPress={navigation.getParam('onSubmit')}
         title='Save'
+      />
+      <AddButton
+        navigation={navigation}
+        onPress={navigation.getParam('generateBilty')}
+        title='Bilty'
       />
       <DeleteButton navigation={navigation} />
     </View>

@@ -17,6 +17,7 @@ firebase.initializeApp(firebaseConfig);
 
 firebase.auth();
 firebase.firestore() // <- needed if using firestore
+firebase.functions();
 const config = {
   key: 'root',
   whitelist: [

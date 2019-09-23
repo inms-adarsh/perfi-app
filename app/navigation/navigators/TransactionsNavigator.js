@@ -44,7 +44,7 @@ const TransactionsNavigator = createStackNavigator({
   ...CategoriesRoutes,
 }, {
   ...navOptions({
-    title: 'Home',
+    title: 'Transactions',
     icon: 'home',
   }),
 });

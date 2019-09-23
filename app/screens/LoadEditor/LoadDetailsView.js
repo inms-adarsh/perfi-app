@@ -16,7 +16,8 @@ const LoadsDetails = (props) => {
     const driver = load.driver ? `${load.driver.name || ''}` : '';
     const truck = load.truck ? `${load.consignee.carrierNo || ''}` : '';
     const valueWithoutGst = (Number(load.freight) || 0) + (Number(load.hamali) || 0) + (Number(load.haltage) || 0) + (Number(load.otherCharges) || 0);
-    const totalFreight = (valueWithoutGst || 0) + ((valueWithoutGst || 0) * (load.gst || 0) * 0.01)
+    const totalFreight = (valueWithoutGst || 0) + ((valueWithoutGst || 0) * (load.gst || 0) * 0.01);
+    
     const _renderItem = ({ item }) => (
         <View style={s.itemContainer}>
             <Text>Item name: {item.name}</Text>
@@ -28,6 +29,17 @@ const LoadsDetails = (props) => {
     return (
         <View style={[s.root, s.loadDetails]}>
             <ScrollView>
+                <View style={[s.container, s.secondContainer]}>
+                    <AddButton
+                        onPress={props.goEditLoad}
+                        title='Edit Load'
+                    />
+
+                    <AddButton
+                        onPress={props.generateBilty}
+                        title='Bilty'
+                    />
+                </View>
                 <View style={s.container}>
                     <LabelRow
                         leftText="Load No#"

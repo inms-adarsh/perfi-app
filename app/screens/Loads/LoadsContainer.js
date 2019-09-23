@@ -22,7 +22,7 @@ const enhance = compose(
       profile: state.firebase.profile
     })
   },
-  loadsOperations
+    loadsOperations
   ),
   firestoreConnect((props) => [{ collection: 'tenants', doc: props.profile.tenantId, subcollections: [{ collection: 'loads' }], storeAs: 'currentLoads' }]),
   withState('searchTerm', 'setSearchTerm', ''),

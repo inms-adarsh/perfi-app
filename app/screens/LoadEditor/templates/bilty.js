@@ -1,7 +1,7 @@
 const bilty = (props) => {
-    const valueWithoutGst = (Number(props.freight) || 0) + (Number(props.hamali) || 0) + (Number(props.haltage) || 0) + (Number(props.otherCharges) || 0);
-    const totalFreight = (valueWithoutGst || 0) + ((valueWithoutGst || 0) * (props.gst || 0) * 0.01);
-    const toPay = totalFreight - (props.advancePaid || 0);
+    const valueWithoutGst = (Number(props.load.freight) || 0) + (Number(props.load.hamali) || 0) + (Number(props.load.haltage) || 0) + (Number(props.load.otherCharges) || 0);
+    const totalFreight = (valueWithoutGst || 0) + ((valueWithoutGst || 0) * (props.load.gst || 0) * 0.01);
+    const toPay = totalFreight - (props.load.advancePaid || 0);
     return `
     <html>
         <head>
@@ -175,7 +175,7 @@ const bilty = (props) => {
                 </table>
             </header>
             <h1 class="title">General Info</h1>
-            ${generalInfo(props)}
+            ${generalInfo(props.load)}
             
             <h1 class="title">Items</h1>
             <article>
@@ -189,26 +189,26 @@ const bilty = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                       ${lineItems(props.items)}
+                       ${lineItems(props.load.items)}
                     </tbody>
                 </table>
                 
                 <table class="balance">
                     <tr>
                         <th><span contenteditable>Freight</span></th>
-                        <td><span data-prefix>${props.freight || 0} ₹</span></td>
+                        <td><span data-prefix>${props.load.freight || 0} ₹</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Hamali</span></th>
-                        <td><span data-prefix>${props.hamali || 0} ₹</span></td>
+                        <td><span data-prefix>${props.load.hamali || 0} ₹</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Haltage</span></th>
-                        <td><span data-prefix>${props.haltage || 0} ₹</span></td>
+                        <td><span data-prefix>${props.load.haltage || 0} ₹</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Other Charges</span></th>
-                        <td><span data-prefix>${props.otherCharges || 0} ₹</span></td>
+                        <td><span data-prefix>${props.load.otherCharges || 0} ₹</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Total Freight Without GST</span></th>
@@ -216,7 +216,7 @@ const bilty = (props) => {
                     </tr>
                     <tr>
                         <th><span contenteditable>GST</span></th>
-                        <td><span data-prefix>${props.gst} %</span></td>
+                        <td><span data-prefix>${props.load.gst} %</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Total Freight</span></th>
@@ -224,7 +224,7 @@ const bilty = (props) => {
                     </tr>
                     <tr>
                         <th><span contenteditable>Advance Payment</span></th>
-                        <td><span data-prefix>${props.advancePaid || 0} ₹</span></td>
+                        <td><span data-prefix>${props.load.advancePaid || 0} ₹</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>To Pay</span></th>
@@ -234,23 +234,23 @@ const bilty = (props) => {
                 <table class="balance">
                     <tr>
                         <th><span contenteditable>Goods Value</span></th>
-                        <td><span data-prefix>${props.goodsValue || 0} ₹</span></td>
+                        <td><span data-prefix>${props.load.goodsValue || 0} ₹</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Total Quantity</span></th>
-                        <td><span data-prefix>${props.totalQuantity || 0} ${props.quantityUnit}</span></td>
+                        <td><span data-prefix>${props.load.totalQuantity || 0} ${props.load.quantityUnit}</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Rate per unit</span></th>
-                        <td><span data-prefix>${props.ratePerUnit || 0} ₹</span></td>
+                        <td><span data-prefix>${props.load.ratePerUnit || 0} ₹</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Freight Paid By</span></th>
-                        <td><span data-prefix>${props.freightBy}</span></td>
+                        <td><span data-prefix>${props.load.freightBy}</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>GST Paid By</span></th>
-                        <td><span data-prefix>${props.gstBy}</span></td>
+                        <td><span data-prefix>${props.load.gstBy}</span></td>
                     </tr>
                 </table>
             </article>

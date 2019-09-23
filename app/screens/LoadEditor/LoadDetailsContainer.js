@@ -53,13 +53,8 @@ const enhance = compose(
       const {
         navigation,
         goEditLoad,
-        selectLoad,
-        load
       } = this.props;
       navigation.setParams({ goEditLoad: goEditLoad });
-      if(load) {
-        selectLoad(load);
-      }
     }
   })
 );

@@ -6,6 +6,7 @@ import transactions from './transactions';
 import transfers from './transfers';
 import navigator from './navigator';
 // -- IMPORT --
+import checkcalls from "./checkcalls";
 import items from "./items";
 import locations from "./locations";
 import settings from "./settings";
@@ -32,6 +33,7 @@ const appReducer = {
   firebase: firebaseReducer,
   firestore:firestoreReducer,
   // -- LIST --
+	checkcalls,
 	items,
 	locations,
 	settings,

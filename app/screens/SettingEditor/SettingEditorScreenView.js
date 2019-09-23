@@ -74,6 +74,16 @@ const SettingEditor = (props) => {
               onChangeText={ props.setGst }
               containerStyle={s.inputContainer}
             />
+            <Input
+              isValid
+              placeholder="Bilty Notes"
+              value={ props.notes }
+              onChangeText={ props.setNotes }
+              containerStyle={s.inputContainer}
+              multiline={true}
+              numberOfLines = {4}
+              suffix="Optional"
+            />
             {/*// -- ADD INPUT -- */}
            
 

@@ -27,6 +27,7 @@ const config = {
     'transactions',
     'transfers',
     // -- LIST --
+		'checkcalls',
 		'items',
 		'locations',
 		'settings',

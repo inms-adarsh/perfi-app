@@ -18,13 +18,15 @@ import OnBoarding from './OnBoarding';
 import LoginPage from './Login';
 import RegisterPage from './Register';
 // -- IMPORT --
+import CheckCallEditor from "./CheckCallEditor";
+import CheckCalls from "./CheckCalls";
 import ItemEditor from "./ItemEditor";
 import Items from "./Items";
 import LocationEditor from "./LocationEditor";
 import Locations from "./Locations";
 import SettingEditor from "./SettingEditor";
 import Settings from "./Settings";
-import LoadEditor from "./LoadEditor";
+import { LoadEditorContainer as LoadEditor, LoadDetailsContainer as LoadDetails } from "./LoadEditor";
 import Loads from "./Loads";
 import TruckEditor from "./TruckEditor";
 import Trucks from "./Trucks";
@@ -60,12 +62,15 @@ export {
 	LoginPage,
 	RegisterPage,
 	// -- LIST --
+	CheckCallEditor,
+	CheckCalls,
 	ItemEditor,
 	Items,
 	LocationEditor,
 	Locations,
 	SettingEditor,
 	Settings,
+	LoadDetails,
 	LoadEditor,
 	Loads,
 	TruckEditor,

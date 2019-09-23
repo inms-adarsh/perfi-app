@@ -38,7 +38,7 @@ const ItemEditor = (props) => {
               onChangeText={setName}
               containerStyle={s.inputContainer}
             />
-            
+
             <View style={[s.container]}>
               <Input
                 isValid

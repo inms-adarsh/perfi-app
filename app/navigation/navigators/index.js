@@ -4,7 +4,9 @@ import TransactionsNavigator from './TransactionsNavigator';
 import TrendsNavigator from './TrendsNavigator';
 import FavouritesNavigator from './FavouritesNavigator';
 import LoginNavigator from './LoginNavigator';
+import LoadDetailsNavigator from "./LoadDetailsNavigator";
 // -- IMPORT --
+import CheckCallsNavigator from "./CheckCallsNavigator";
 import ItemsNavigator from "./ItemsNavigator";
 import LocationsNavigator from "./LocationsNavigator";
 import SettingsNavigator from "./SettingsNavigator";
@@ -19,13 +21,15 @@ import CustomersNavigator from "./CustomersNavigator";
 import ContactsNavigator from "./ContactsNavigator";
 
 export {
-  TrendsNavigator,
-  CategoriesNavigator,
-  AccountsNavigator,
-  TransactionsNavigator,
-  FavouritesNavigator,
-  LoginNavigator,
-  // -- LIST --
+	TrendsNavigator,
+	CategoriesNavigator,
+	AccountsNavigator,
+	TransactionsNavigator,
+	FavouritesNavigator,
+	LoginNavigator,
+	LoadDetailsNavigator,
+	// -- LIST --
+	CheckCallsNavigator,
 	ItemsNavigator,
 	LocationsNavigator,
 	SettingsNavigator,
@@ -36,6 +40,6 @@ export {
 	VendorsNavigator,
 	DriversNavigator,
 	BrokersNavigator,
-  CustomersNavigator,
-  ContactsNavigator
+	CustomersNavigator,
+	ContactsNavigator
 };

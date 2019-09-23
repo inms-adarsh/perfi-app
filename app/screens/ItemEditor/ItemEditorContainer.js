@@ -28,8 +28,7 @@ import {
     /*-- ADD STATE PROPS --*/
 		withState('packet', 'setPacket', screenProp('packet', '')),
 		withState('unit', 'setUnit', 'tons'),
-		withState('weight', 'setWeight', screenProp('weight', '')),
-
+		withState('weight', 'setWeight', screenProp('weight', '')),    
     /*-- ADD NAV PROPS --*/
     withProps(({/*-- FETCH PROPS --*/}) => ({
       /*-- ADD LOOKUP PROPS --*/

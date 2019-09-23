@@ -13,7 +13,7 @@ const loadsReducer = handleActions({
   [types.DELETE_LOAD]: (state, { payload }) => removeId(state, payload),
   [types.SELECT_LOAD]: (state, { payload }) => {
     return { ...state,
-      load: payload
+      currentLoad: payload
     }
   },
 }, initialState);

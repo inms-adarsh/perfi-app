@@ -11,6 +11,7 @@ const Routes = {
     screen: TruckEditor,
   },
   /*-- SCREENS --*/
+
 };
 
 export default Routes;

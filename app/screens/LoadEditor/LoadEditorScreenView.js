@@ -21,7 +21,7 @@ import {
 import s from './styles';
 import LoadItem from './Item';
 
-const tabs = ['Customer', 'Location', 'Freight', 'Insurance'];
+const tabs = ['Customer', 'Delivery', 'Freight', 'Insurance'];
 
 const LoadEditor = (props) => {
   const {
@@ -226,25 +226,26 @@ const LoadEditor = (props) => {
                 </FlatList>
                 <AddButton onPress={addItem} title="Add Item"></AddButton>
               </View>
-              <Input
-                isValid
-                placeholder="Goods Value"
-                label="Goods Value"
-                keyboardType='numeric'
-                value={props.goodsValue}
-                onChangeText={props.setGoodsValue}
-                containerStyle={s.inputContainer}
-                suffix="₹"
-              />
-              <Input
-                isValid
-                placeholder="E-Way Bill No"
-                label="E-Way Bill No"
-                value={props.eWayBill}
-                onChangeText={props.setEWayBill}
-                containerStyle={s.inputContainer}
-                suffix="Optional"
-              />
+              
+            <Input
+              isValid
+              placeholder="Goods Value"
+              label="Goods Value"
+              keyboardType='numeric'
+              value={props.goodsValue}
+              onChangeText={props.setGoodsValue}
+              containerStyle={s.inputContainer}
+              suffix="₹"
+            />
+            <Input
+              isValid
+              placeholder="Bill No"
+              label="Bill No"
+              value={props.eWayBill}
+              onChangeText={props.setEWayBill}
+              containerStyle={s.inputContainer}
+              suffix="Optional"
+            />
               <View style={s.container} >
                 <Input
                   isValid
@@ -430,11 +431,6 @@ LoadEditor.navigationOptions = ({ navigation }) => ({
         navigation={navigation}
         onPress={navigation.getParam('onSubmit')}
         title='Save'
-      />
-      <AddButton
-        navigation={navigation}
-        onPress={navigation.getParam('generateBilty')}
-        title='Bilty'
       />
       <DeleteButton navigation={navigation} />
     </View>

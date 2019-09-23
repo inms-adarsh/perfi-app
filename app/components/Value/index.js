@@ -4,7 +4,10 @@ import Value from './Value';
 
 const enhance = compose(
   connect(state => ({
-    currency: state.settings.currency,
+    currency:{
+      name: '₹ - Rupees',
+      sign: '₹',
+    },
   })),
   withProps(({ value, isTransfer, type }) => {
     const val = type ? value : Number(value);

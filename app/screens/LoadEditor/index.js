@@ -1,3 +1,3 @@
 import LoadEditorContainer from './LoadEditorContainer';
-
-export default LoadEditorContainer;
+import LoadDetailsContainer from './LoadDetailsContainer';
+export { LoadEditorContainer, LoadDetailsContainer };

@@ -40,6 +40,8 @@ const Item = ({
             <View style={s.mainContentContainer}>
                 <Text>Item name: {item.name}</Text>
                 <Text>Weight: {item.weight} {item.unit}</Text>
+                {/* <Text>Goods Value: {item.goodsValue|| ''}₹</Text>
+                <Text>Bill No: {item.eWayBill}</Text> */}
             </View>
             <View style={s.icon}>
                 <TouchableItem

@@ -1,6 +1,7 @@
 import screens from '../../constants/screens';
-import { Loads, LoadEditor, Customers, CustomerEditor, Brokers, BrokerEditor, Transportations, TransportationEditor, Trucks, TruckEditor, Locations, LocationEditor, ItemEditor, Drivers, DriverEditor, /*-- IMPORT SCREENS --*/ } from '../../screens';
+import { Loads, LoadEditor, LoadDetails, Customers, CustomerEditor, Brokers, BrokerEditor, Transportations, TransportationEditor, Trucks, TruckEditor, Locations, LocationEditor, ItemEditor, Drivers, DriverEditor, /*-- IMPORT SCREENS --*/ } from '../../screens';
 import headerOptions from '../../utils/stackHeaderOptions';
+import { LoadDetailsNavigator } from '../navigators'
 
 const Routes = {
   [screens.Loads]: {
@@ -10,6 +11,15 @@ const Routes = {
   [screens.LoadEditor]: {
     screen: LoadEditor,
   },
+  
+  ['LoadDetailsNavigator']: {
+    screen: LoadDetailsNavigator,
+    headerMode: 'screen',
+    navigationOptions: headerOptions({ title: 'Load Details' }),
+    // navigationOptions: {
+    //   header: null,
+    // },
+  },  
   /*-- SCREENS --*/
 	['LoadDriversList']: {
     screen: Drivers,

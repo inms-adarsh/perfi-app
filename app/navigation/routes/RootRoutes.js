@@ -15,25 +15,6 @@ import {
 } from '../navigators';
 
 const Routes = {
-  // [screens.TransactionsRoot]: {
-  //   screen: TransactionsNavigator,
-  // },
-  // [screens.AccountsRoot]: {
-  //   screen: AccountsNavigator,
-  // },
-  // [screens.CategoriesRoot]: {
-  //   screen: CategoriesNavigator,
-  // },
-  // [screens.TrendsRoot]: {
-  //   screen: TrendsNavigator,
-  // },
-  // [screens.FavouritesRoot]: {
-  //   screen: FavouritesNavigator,
-  // },
-  // [screens.SettingsRoot]: {
-  //   screen: SettingsNavigator,
-  // },
-  // -- LIST --
   [screens.LoadsRoot]: {
     screen: LoadsNavigator
   },  
@@ -50,6 +31,28 @@ const Routes = {
     screen: SettingsNavigator
   },
   
+  [screens.TransactionsRoot]: {
+    screen: TransactionsNavigator,
+  },
+  // [screens.SettingsRoot]: {
+  //   screen: SettingsNavigator,
+  // },
+  [screens.AccountsRoot]: {
+    screen: AccountsNavigator,
+  },
+  [screens.CategoriesRoot]: {
+    screen: CategoriesNavigator,
+  },
+  // [screens.TrendsRoot]: {
+  //   screen: TrendsNavigator,
+  // },
+  // [screens.FavouritesRoot]: {
+  //   screen: FavouritesNavigator,
+  // },
+ 
+  // -- LIST --
+  
+ 
   // [screens.ItemsRoot]: {
   //   screen: ItemsNavigator
   // },

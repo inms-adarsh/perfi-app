@@ -1,11 +1,15 @@
 import { handleActions } from 'redux-actions';
 import types from './types';
-import { defaultSettings } from '../../constants/settings';
+import currencies from '../../constants/currencies';
 import { insert, insertAll, update, removeId } from '../../utils/stateHelper';
 
 const createSetting = ({ name, phone, address, pan, email, gst,/*-- ADD PROPS --*/ }) => ({ name, phone, address, pan, email, gst,/*-- ADD PROPS --*/ });
 
-const initialState = insertAll({}, defaultSettings);
+const initialState = {
+  currency: currencies.rupees,
+  isSignedIn: false,
+};
+
 
 const settingsReducer = handleActions({
   [types.CREATE_SETTING]: (state, { payload }) => insert(state, createSetting(payload)),

@@ -38,6 +38,11 @@ export default {
 	DrawerRoot: 'DrawerRoot',
 	OnBoarding: 'OnBoarding',
 	// -- LIST --
+	CheckCallsRoot: 'CheckCallsRoot',
+	CheckCalls: 'CheckCalls',
+	CheckCallsList: 'CheckCallsList',
+	CheckCallEditor: 'CheckCallEditor',
+	
 	ItemsRoot: 'ItemsRoot',
 	Items: 'Items',
 	ItemsList: 'ItemsList',

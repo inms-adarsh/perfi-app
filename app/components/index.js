@@ -35,8 +35,10 @@ import SimpleDateFilter from './SimpleDateFilter';
 import ColorPicker from './ColorPicker';
 import DrawerIcon from './DrawerIcon';
 import EmptyList from './EmptyList';
+import LabelRow from './LabelRow';
 
 // -- IMPORT --
+import CheckCallsList from "./CheckCallsList";
 import ItemsList from "./ItemsList";
 import LocationsList from "./LocationsList";
 import SettingsList from "./SettingsList";
@@ -87,7 +89,9 @@ export {
   SimpleDateFilter,
   DrawerIcon,
   EmptyList,
+  LabelRow,
   // -- LIST --
+	CheckCallsList,
 	ItemsList,
 	LocationsList,
 	SettingsList,

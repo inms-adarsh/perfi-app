@@ -8,11 +8,11 @@ import { Keyboard, ToastAndroid, Alert } from 'react-native';
 import LoadEditor from './LoadEditorScreenView';
 import { getParam } from '../../utils/navHelpers';
 import { firestoreConnect, firebaseConnect } from 'react-redux-firebase'
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import screens from '../../screens';
 /*-- IMPORT SCREENS --*/
 
 const screenProp = (propName, def) => R.pathOr(def, ['load', propName]);
-const requiredProps = ['loadNo', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/];
+const requiredProps = ['loadNo', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue','totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/];
 const isFieldsFilled = R.pipe(R.props, R.none(R.isNil));
 
 const enhance = compose(
@@ -20,13 +20,16 @@ const enhance = compose(
   firestoreConnect(),
   connect((state, props) => {
     const currentLoadNumber = state.firestore.ordered.recentLoadNumber && state.firestore.ordered.recentLoadNumber[0] && state.firestore.ordered.recentLoadNumber[0].currentLoadNumber;
+    const settings = state.firestore.ordered.settings && state.firestore.ordered.settings[0];
     return {
       auth: state.firebase.auth,
       profile: state.firebase.profile,
-      currentLoadNumber
+      currentLoadNumber,
+      settings
     }
   }),
   firestoreConnect((props) => [{ collection: 'tenants', doc: props.profile.tenantId, subcollections: [{ collection: 'currentLoadNumber' }], storeAs: 'recentLoadNumber' }]),
+  firestoreConnect((props) => [{ collection: 'tenants', doc: props.profile.tenantId, subcollections: [{ collection: 'settings' }], storeAs: 'settings' }]),
   withProps(({ navigation }) => ({ backUrl: getParam('backUrl')(navigation) })),
   withProps(({ navigation }) => ({ listUrl: getParam('listUrl')(navigation) })),
   withProps(({ navigation }) => ({ load: getParam('load')(navigation) })),
@@ -55,8 +58,6 @@ const enhance = compose(
   withState('ratePerUnit', 'setRatePerUnit', screenProp('ratePerUnit', '')),
   withState('quantityUnit', 'setQuantityUnit', screenProp('quantityUnit', 'tons')),
   withState('totalQuantity', 'setTotalQuantity', screenProp('totalQuantity', '')),
-  withState('eWayBill', 'setEWayBill', screenProp('eWayBill', '')),
-  withState('goodsValue', 'setGoodsValue', screenProp('goodsValue', '')),
   withState('toLocationName', 'setToLocationName', null),
   withState('isSelectedToLocation', 'setSelectedToLocation', false),
   withState('toLocation', 'setToLocation', null),
@@ -64,7 +65,9 @@ const enhance = compose(
   withState('fromLocationName', 'setFromLocationName', null),
   withState('isSelectedFromLocation', 'setSelectedFromLocation', false),
   withState('fromLocation', 'setFromLocation', null),
-
+  
+  withState('eWayBill', 'setEWayBill', screenProp('eWayBill', '')),
+  withState('goodsValue', 'setGoodsValue', screenProp('goodsValue', '')),
   withState('freightBy', 'setFreightBy', screenProp('freightBy', 'consignor')),
 
   withState('gstBy', 'setGstBy', screenProp('gstBy', 'consignor')),
@@ -168,7 +171,7 @@ const enhance = compose(
       if (listUrl) {
         navigation.navigate(listUrl);
       } else {
-        navigation.goBack(null);
+        navigation.navigate('Loads');
       }
     },
     /*-- ADD SELECT PROPS --*/
@@ -286,24 +289,7 @@ const enhance = compose(
     onDeleteItem: ({ items, setItems }) => (item) => {
       setItems(items.filter(el => el !== item));
     },
-    generateBilty: ({ firebase, auth }) => async () => {
-      var generateBilty = firebase.functions().httpsCallable('generateBilty');
-      // addMessage({ uid: auth.uid }).then(function (result) {
-      //   // Read result of the Cloud Function.
-      //   var sanitizedMessage = result.data.tenantId;
-      //   Alert.alert(sanitizedMessage);
-      //   // ...
-      // });
-      let options = {
-        html: '<h1>PDF TEST</h1>',
-        fileName: 'test',
-        directory: 'Documents',
-      };
-
-      let file = await RNHTMLtoPDF.convert(options)
-      // console.log(file.filePath);
-      Alert.alert(file.filePath);
-    }
+    
   }),
   withPropsOnChange(
     requiredProps,

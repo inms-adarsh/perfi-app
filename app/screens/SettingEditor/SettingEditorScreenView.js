@@ -33,7 +33,7 @@ const SettingEditor = (props) => {
           <View style={s.root}>
               <Input
                 isValid
-                placeholder="Setting name"
+                placeholder="Company Name"
                 value={name}
                 onChangeText={setName}
                 containerStyle={s.inputContainer}

@@ -14,7 +14,7 @@ const LoadsDetails = (props) => {
     const consignor = load.consignor ? `${load.consignor.name || ''}` : '';
     const consignee = load.consignee ? `${load.consignee.name || ''}` : '';
     const driver = load.driver ? `${load.driver.name || ''}` : '';
-    const truck = load.truck ? `${load.consignee.carrierNo || ''}` : '';
+    const truck = load.truck ? `${load.truck.carrierNo || ''}` : '';
     const valueWithoutGst = (Number(load.freight) || 0) + (Number(load.hamali) || 0) + (Number(load.haltage) || 0) + (Number(load.otherCharges) || 0);
     const totalFreight = (valueWithoutGst || 0) + ((valueWithoutGst || 0) * (load.gst || 0) * 0.01);
 

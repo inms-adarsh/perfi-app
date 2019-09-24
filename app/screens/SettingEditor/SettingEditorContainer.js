@@ -71,6 +71,7 @@ const enhance = compose(
       }, (e) => {
         ToastAndroid.show('Error saving setting! Please try again', ToastAndroid.BOTTOM);
       });
+      navigation.goBack('LoadsRoot');
       // if(listUrl) {
       //   navigation.navigate(listUrl);
       // } else {

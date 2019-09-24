@@ -238,7 +238,7 @@ const bilty = (props) => {
                     </tr>
                     <tr>
                         <th><span contenteditable>Total Quantity</span></th>
-                        <td><span data-prefix>${props.load.totalQuantity || 0} ${props.load.quantityUnit}</span></td>
+                        <td><span data-prefix>${props.load.totalQuantity || 0} ${props.load.quantityUnit || ''}</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Rate per unit</span></th>
@@ -246,11 +246,11 @@ const bilty = (props) => {
                     </tr>
                     <tr>
                         <th><span contenteditable>Freight Paid By</span></th>
-                        <td><span data-prefix>${props.load.freightBy}</span></td>
+                        <td><span data-prefix>${props.load.freightBy || ''}</span></td>
                     </tr>
                     <tr>
                         <th><span contenteditable>GST Paid By</span></th>
-                        <td><span data-prefix>${props.load.gstBy}</span></td>
+                        <td><span data-prefix>${props.load.gstBy || ''}</span></td>
                     </tr>
                 </table>
             </article>
@@ -266,11 +266,11 @@ const bilty = (props) => {
 
 const header = (settings) => {
     return `
-                    <p>${settings.name}</p>
-                    <p>${settings.address}</p>
-                    <p>${settings.phone}</p>
-                    <p>${settings.email}</p>
-                    <p>GSTIN: ${settings.gst}</p>
+                    <p>${settings.name || ''}</p>
+                    <p>${settings.address || ''}</p>
+                    <p>${settings.phone || ''}</p>
+                    <p>${settings.email || ''}</p>
+                    <p>GSTIN: ${settings.gst || ''}</p>
     `
 }
 
@@ -279,11 +279,11 @@ const biltyBasics = (load) => {
     return `
                     <tr>
                         <th><span contenteditable>Load #</span></th>
-                        <td>${load.loadNo}</td>
+                        <td>${load.loadNo || ''}</td>
                     </tr>
                     <tr>
                         <th><span contenteditable>Date</span></th>
-                        <td>${new Date(load.date)}</td>
+                        <td>${new Date(load.date) || ''}</td>
                     </tr>
     `
 }

@@ -13,7 +13,7 @@ const enhance = compose(
     profile: state.firebase.profile
   })),  
   firebaseConnect(),
-  firestoreConnect(() => ['appliances']),
+  firestoreConnect(),
   //connect(null, settingsOperations),
   withHandlers({
     onSignIn: props => () => props.signIn(),

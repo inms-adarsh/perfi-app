@@ -5,13 +5,13 @@ import screens from '../constants/screens';
 const headerOptions = defaultOptions => ({ navigation }) => {
   const isInitRoute = navigation.state.key === 'Init';
 
-  return isInitRoute ? {
+  return {
     headerLeft:
     <NavigationButton
       iconName="bars"
-      onPress={() => navigation.navigate(screens.DrawerOpen)}
+      onPress={() => navigation.toggleDrawer()}
     />,
-  } : defaultOptions;
+  }
 };
 
 export default headerOptions;

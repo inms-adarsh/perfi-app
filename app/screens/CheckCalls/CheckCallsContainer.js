@@ -62,7 +62,6 @@ import {
           navigation,
           currentLoad
         } = this.props;
-        console.log(currentLoad);
       }
     })
   );

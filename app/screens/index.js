@@ -18,6 +18,10 @@ import OnBoarding from './OnBoarding';
 import LoginPage from './Login';
 import RegisterPage from './Register';
 // -- IMPORT --
+import DriverSettlementEditor from "./DriverSettlementEditor";
+import DriverSettlements from "./DriverSettlements";
+import LoadExpenseEditor from "./LoadExpenseEditor";
+import LoadExpenses from "./LoadExpenses";
 import CheckCallEditor from "./CheckCallEditor";
 import CheckCalls from "./CheckCalls";
 import ItemEditor from "./ItemEditor";
@@ -62,6 +66,10 @@ export {
 	LoginPage,
 	RegisterPage,
 	// -- LIST --
+	DriverSettlementEditor,
+	DriverSettlements,
+	LoadExpenseEditor,
+	LoadExpenses,
 	CheckCallEditor,
 	CheckCalls,
 	ItemEditor,

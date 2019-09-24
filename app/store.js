@@ -27,6 +27,8 @@ const config = {
     'transactions',
     'transfers',
     // -- LIST --
+		'driversettlements',
+		'loadexpenses',
 		'checkcalls',
 		'items',
 		'locations',

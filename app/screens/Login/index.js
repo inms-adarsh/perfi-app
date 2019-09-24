@@ -8,13 +8,17 @@ import {
 } from 'recompose';
 import { ToastAndroid, Alert } from 'react-native'
 import { connect } from 'react-redux'
-import { getVal, firebaseConnect } from 'react-redux-firebase'
+import { getVal, firebaseConnect, firestoreConnect } from 'react-redux-firebase'
 import LoginPage from './Login';
 import * as Google from 'expo-google-app-auth';
 
 const enhance = compose(
     firebaseConnect(),
-    connect(({ firebase }) => ({ auth: getVal(firebase, 'auth') })),
+    connect((state) => ({
+        auth: state.firebase.auth,
+        profile: state.firebase.profile
+    })),
+    firestoreConnect(),
     withState('username', 'setUsername', ''),
     withState('password', 'setPassword', ''),
     withState('showLoader', 'setShowLoader', false),
@@ -23,13 +27,13 @@ const enhance = compose(
         ({ username, password }) => ({ isValid: !!username && username.length > 0 && !!password }),
     ),
     lifecycle({
-        componentWillMount() {
-            const { firebase, navigation } = this.props;
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    navigation.navigate('DrawerRoot')
-                }
-            });
+        componentDidUpdate(prevProps) {
+            const { firebase, navigation, profile } = this.props;
+            if (profile.isLoaded && profile.isLoaded != prevProps.profile.isLoaded) {
+                firebase.auth().onAuthStateChanged((user) => {
+                    navigation.navigate(user ? 'DrawerRoot' : 'AuthenticationScreen')
+                });
+            }
         }
     }),
 
@@ -40,7 +44,7 @@ const enhance = compose(
                 email: username,
                 password: password
             }).then((res) => {
-                navigation.navigate('DrawerRoot')
+                navigation.navigate('OnBoarding')
             }).catch(e => {
                 setShowLoader(false)
                 ToastAndroid.show('Invalid username or passowrd', ToastAndroid.BOTTOM);

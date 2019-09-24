@@ -6,6 +6,8 @@ import transactions from './transactions';
 import transfers from './transfers';
 import navigator from './navigator';
 // -- IMPORT --
+import driversettlements from "./driversettlements";
+import loadexpenses from "./loadexpenses";
 import checkcalls from "./checkcalls";
 import items from "./items";
 import locations from "./locations";
@@ -33,6 +35,8 @@ const appReducer = {
   firebase: firebaseReducer,
   firestore:firestoreReducer,
   // -- LIST --
+	driversettlements,
+	loadexpenses,
 	checkcalls,
 	items,
 	locations,

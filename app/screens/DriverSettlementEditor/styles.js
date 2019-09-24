@@ -21,22 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: verticalIndent,
   },
-  saveButton: {
-    flexDirection: 'row',
-    paddingHorizontal: indent
-  },
-  inlineInput: {
-    flex: 0.7
-  },
-  inlineList: {
-    flex: 0.3
-  },
-  flex30: {
-    flex: 0.3
-  },
-  flex50: {
-    flex: 0.5
-  },
+
   inputContainer: {
     marginBottom: dimensions.verticalIndent
   },
@@ -53,32 +38,7 @@ const styles = StyleSheet.create({
     marginRight: indent,
     paddingTop: fontSizes.verySmall,
   },
-  label: {
-    paddingBottom: indent / 2,
-    paddingTop: indent / 2,
-    fontSize: fontSizes.medium,
-    fontWeight: '700',
-  },
-  mainContentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
-  },
-  itemContainer: {
-    flexDirection: 'column',
-    flex: 1,
-  },
-  freight: {
-    flexDirection: 'column',
-    alignItems: 'flex-start'
-  },
-  loadDetails: {
-    paddingHorizontal: indent * 2,
-    paddingVertical: indent
-  },
-  addButton: {
-    marginRight: indent
-  }
+
 });
 
 export default styles;

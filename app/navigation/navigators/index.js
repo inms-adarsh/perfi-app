@@ -6,6 +6,8 @@ import FavouritesNavigator from './FavouritesNavigator';
 import LoginNavigator from './LoginNavigator';
 import LoadDetailsNavigator from "./LoadDetailsNavigator";
 // -- IMPORT --
+import DriverSettlementsNavigator from "./DriverSettlementsNavigator";
+import LoadExpensesNavigator from "./LoadExpensesNavigator";
 import CheckCallsNavigator from "./CheckCallsNavigator";
 import ItemsNavigator from "./ItemsNavigator";
 import LocationsNavigator from "./LocationsNavigator";
@@ -29,6 +31,8 @@ export {
 	LoginNavigator,
 	LoadDetailsNavigator,
 	// -- LIST --
+	DriverSettlementsNavigator,
+	LoadExpensesNavigator,
 	CheckCallsNavigator,
 	ItemsNavigator,
 	LocationsNavigator,

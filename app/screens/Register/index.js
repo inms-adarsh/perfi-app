@@ -17,6 +17,10 @@ import RegisterPage from './Register';
 
 const enhance = compose(
     firebaseConnect(),
+    connect((state) => ({
+        auth: state.firebase.auth,
+        profile: state.firebase.profile
+    })),
     firestoreConnect(),
     connect(({ firebase }) => ({ auth: getVal(firebase, 'auth') })),
     withState('username', 'setUsername', ''),
@@ -26,6 +30,16 @@ const enhance = compose(
         ['username', 'password'],
         ({ username, password }) => ({ isValid: !!username && username.length > 0 && !!password }),
     ),
+    // lifecycle({
+    //     componentDidUpdate(prevProps) {
+    //         const { firebase, navigation, profile } = this.props;
+    //         if (profile.isLoaded && profile.isLoaded != prevProps.profile.isLoaded) {
+    //             firebase.auth().onAuthStateChanged((user) => {
+    //                 navigation.navigate('DrawerRoot')
+    //             });
+    //         }
+    //     }
+    // }),
     withHandlers({
         registerWithPassword: ({ firebase, setShowLoader, firestore, username, password, navigation }) => async () => {
             setShowLoader(true);
@@ -35,7 +49,7 @@ const enhance = compose(
             ).then((res) => {
                 firestore.set(`tenants/${res.user.uid}/users/${res.user.uid}`, { username, tenantId: res.user.uid });
                 firestore.set(`users/${res.user.uid}`, { username, tenantId: res.user.uid });
-                navigation.navigate('DrawerRoot')
+                navigation.navigate('OnBoarding')
             }, (e, res) => {
                 setShowLoader(false);
                 ToastAndroid.show(e.message, ToastAndroid.BOTTOM);

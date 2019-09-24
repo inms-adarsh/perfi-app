@@ -38,6 +38,16 @@ export default {
 	DrawerRoot: 'DrawerRoot',
 	OnBoarding: 'OnBoarding',
 	// -- LIST --
+	DriverSettlementsRoot: 'DriverSettlementsRoot',
+	DriverSettlements: 'DriverSettlements',
+	DriverSettlementsList: 'DriverSettlementsList',
+	DriverSettlementEditor: 'DriverSettlementEditor',
+	
+	LoadExpensesRoot: 'LoadExpensesRoot',
+	LoadExpenses: 'LoadExpenses',
+	LoadExpensesList: 'LoadExpensesList',
+	LoadExpenseEditor: 'LoadExpenseEditor',
+	
 	CheckCallsRoot: 'CheckCallsRoot',
 	CheckCalls: 'CheckCalls',
 	CheckCallsList: 'CheckCallsList',

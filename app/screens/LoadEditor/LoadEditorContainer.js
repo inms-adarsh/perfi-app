@@ -118,7 +118,7 @@ const enhance = compose(
     consignorName: R.pathOr('Select Consignor', ['name'], consignor),
     brokerName: R.pathOr('Select Broker', ['name'], broker),
     customerName: R.pathOr('Select Customer', ['name'], customer),
-    loadNo: R.pathOr(currentLoadNumber ? currentLoadNumber + 1 : '', ['loadNo'], load, ''),
+    loadNo: R.pathOr(currentLoadNumber ? currentLoadNumber + 1 : 1, ['loadNo'], load, ''),
   })),
   withProps(({ item, items }) => {
     if (item && items) {

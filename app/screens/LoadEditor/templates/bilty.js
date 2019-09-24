@@ -257,7 +257,7 @@ const bilty = (props) => {
             <aside>
                 <h1><span contenteditable>Additional Notes</span></h1>
                 <div contenteditable>
-                    <p>${props.settings.notes || ''}</p>
+                    <p>${props.settings && props.settings.notes ? props.settings.notes : ''}</p>
                 </div>
             </aside>
         </body>
@@ -265,6 +265,9 @@ const bilty = (props) => {
 }
 
 const header = (settings) => {
+    if (!settings) {
+        return ``
+    }
     return `
                     <p>${settings.name || ''}</p>
                     <p>${settings.address || ''}</p>
@@ -301,29 +304,35 @@ const generalInfo = (load) => {
         </thead>
         <tbody>
             <tr>
-                <td>
-                    <p><b>Name:</b> ${load.customer.name || ''}</p>
-                    <p><b>Phone:</b> ${load.customer.phone || ''}</p>
-                    <p><b>Address:</b> ${load.customer.address || ''}</p>
-                    <p><b>GSTIN:</b> ${load.customer.gst || ''}</p>
-                </td>
+                ${load.customer ? ` 
+                    <td>
+                        <p><b>Name:</b> ${load.customer.name || ''}</p>
+                        <p><b>Phone:</b> ${load.customer.phone || ''}</p>
+                        <p><b>Address:</b> ${load.customer.address || ''}</p>
+                        <p><b>GSTIN:</b> ${load.customer.gst || ''}</p>
+                    </td>
+                `: ''}
+                ${load.consignor ? `
                 <td>
                     <p><b>Name:</b> ${load.consignor.name || ''}</p>
                     <p><b>Phone:</b> ${load.consignor.phone || ''}</p>
                     <p><b>Address:</b> ${load.consignor.address || ''}</p>
                     <p><b>GSTIN:</b> ${load.consignor.gst || ''}</p>
                 </td>
+                `: ''}
+                ${load.consignee ? `
                 <td>
                     <p><b>Name:</b> ${load.consignee.name || ''}</p>
                     <p><b>Phone:</b> ${load.consignee.phone || ''}</p>
                     <p><b>Address:</b> ${load.consignee.address || ''}</p>
                     <p><b>GSTIN:</b> ${load.consignee.gst || ''}</p>
                 </td>
+                `: ''}
                 <td>
-                    <p><b>From:</b> ${load.fromLocation.city || ''}, ${load.fromLocation.state || ''}</p>
-                    <p><b>To:</b> ${load.toLocation.city || ''}, ${load.toLocation.state || ''}</p>
+                ${load.fromLocation ? `<p><b>From:</b> ${load.fromLocation.city || ''}, ${load.fromLocation.state || ''}</p>` : ''}
+                ${load.toLocation ? `<p><b>To:</b> ${load.toLocation.city || ''}, ${load.toLocation.state || ''}</p>` : ''}
                     <p><b>Address:</b> ${load.deliveryAddress || ''}</p>
-                    <p><b>Carrier No:</b> ${load.truck.carrierNo || ''}</p>
+                    <p><b>Carrier No:</b> ${load.truck && load.truck.carrierNo ? load.truck.carrierNo : ''}</p>
                 </td>
             </tr>
         </tbody>
@@ -332,11 +341,11 @@ const generalInfo = (load) => {
 }
 const lineItems = (items) => {
     let lineItems = '';
-    if(items.length === 0) {
+    if (items.length === 0) {
         return lineItems;
     }
     items.forEach(item => {
-        lineItems+= `
+        lineItems += `
         <tr>
             <td><span contenteditable>${item.name || ''}</span></td>
             <td><span data-prefix>${item.weight || ''}</span></td>

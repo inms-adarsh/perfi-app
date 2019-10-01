@@ -21,7 +21,7 @@ import {
 import s from './styles';
 import LoadItem from './Item';
 
-const tabs = ['Customer', 'Delivery', 'Freight', 'Insurance'];
+const tabs = ['Customer', 'Freight', 'Insurance'];
 
 const LoadEditor = (props) => {
   const {
@@ -47,23 +47,28 @@ const LoadEditor = (props) => {
     <View style={s.root}>
       <ScreenWrapper>
         <View style={s.root}>
-          <Input
-            isValid
-            placeholder="Load no#"
-            prefix="Load no#"
-            value={loadNo}
-            onChangeText={setLoadNo}
-            containerStyle={s.inputContainer}
-            keyboardType="numeric"
-          />
-         
-          <DatePicker
-            isSelected
-            placeholder="Date"
-            date={props.date}
-            onSelectDate={val => props.setDate(val)}
-            containerStyle={s.inputContainer}
-          />
+          <View style={[s.container]}>
+            <View style={s.flex30}>
+              <Input
+                isValid
+                placeholder="LR#"
+                prefix="LR#"
+                value={loadNo}
+                onChangeText={setLoadNo}
+                containerStyle={s.inputContainer}
+                keyboardType="numeric"
+              />
+            </View>
+            <View style={s.inlineInput}>
+              <DatePicker
+                isSelected
+                placeholder="Date"
+                date={props.date}
+                onSelectDate={val => props.setDate(val)}
+                containerStyle={s.inputContainer}
+              />
+            </View>
+          </View>
           <SegmentedControl
             values={tabs}
             selectedIndex={selectedTabIndex}
@@ -76,47 +81,60 @@ const LoadEditor = (props) => {
             topOffset={150}
           >
             <ScrollView>
-              <View>
-                <Text style={[s.label]}>Select Customer Type</Text>
-                <Picker
-                  selectedValue={props.customerType}
-                  style={s.selector}
-                  onValueChange={props.onSelectCustomerType}>
-                  <Picker.Item label="Customer" value="customer" />
-                  <Picker.Item label="Broker" value="broker" />
-                  <Picker.Item label="Transportation" value="transportation" />
-                </Picker>
-              </View>
-              {props.customerType === 'customer' && (
-                <FormInput
-                  style={s.selector}
-                  value={props.customerName}
-                  onPress={props.selectCustomer}
-                  label='Customer'
-                  containerStyle={s.selectorContainer}
-                  isSelected={props.isSelectedCustomer}
-                />
-              )}
-              {props.customerType === 'broker' && (
-                <FormInput
-                  style={s.selector}
-                  label='Broker'
-                  value={props.brokerName}
-                  onPress={props.selectBroker}
-                  containerStyle={s.selectorContainer}
-                  isSelected={props.isSelectedBroker}
-                />
-              )}
-              {props.customerType === 'transportation' && (
-                <FormInput
-                  style={s.selector}
-                  label='Transportation'
-                  value={props.transportationName}
-                  onPress={props.selectTransportation}
-                  containerStyle={s.selectorContainer}
-                  isSelected={props.isSelectedTransportation}
-                />
-              )}
+              <FormInput
+                style={s.selector}
+                value={props.customerName}
+                onPress={props.selectCustomer}
+                label='Customer'
+                containerStyle={s.selectorContainer}
+                isSelected={props.isSelectedCustomer}
+              />
+              {/* <View style={[s.container]}> */}
+              {/* <View style={s.flex50}>
+                  <Text style={[s.label]}>Select Customer Type</Text>
+                  <Picker
+                    selectedValue={props.customerType}
+                    style={s.selector}
+                    onValueChange={props.onSelectCustomerType}>
+                    <Picker.Item label="Customer" value="customer" />
+                    <Picker.Item label="Broker" value="broker" />
+                    <Picker.Item label="Transportation" value="transportation" />
+                  </Picker>
+                </View> */}
+
+              {/* <View style={s.flex50}>
+                  {props.customerType === 'customer' && (
+                    <FormInput
+                      style={s.selector}
+                      value={props.customerName}
+                      onPress={props.selectCustomer}
+                      label='Customer'
+                      containerStyle={s.selectorContainer}
+                      isSelected={props.isSelectedCustomer}
+                    />
+                  )}
+                  {props.customerType === 'broker' && (
+                    <FormInput
+                      style={s.selector}
+                      label='Broker'
+                      value={props.brokerName}
+                      onPress={props.selectBroker}
+                      containerStyle={s.selectorContainer}
+                      isSelected={props.isSelectedBroker}
+                    />
+                  )}
+                  {props.customerType === 'transportation' && (
+                    <FormInput
+                      style={s.selector}
+                      label='Transportation'
+                      value={props.transportationName}
+                      onPress={props.selectTransportation}
+                      containerStyle={s.selectorContainer}
+                      isSelected={props.isSelectedTransportation}
+                    />
+                  )}
+                </View> */}
+              {/* </View> */}
               <FormInput
                 style={s.selector}
                 label='Consignor'
@@ -133,14 +151,6 @@ const LoadEditor = (props) => {
                 containerStyle={s.selectorContainer}
                 isSelected={props.isSelectedConsignee}
               />
-            </ScrollView>
-          </TabContainer>
-          <TabContainer
-            selectedTabIndex={selectedTabIndex}
-            tabIndex={1}
-            topOffset={150}
-          >
-            <ScrollView>
               <FormInput
                 style={s.selector}
                 label="From"
@@ -186,7 +196,7 @@ const LoadEditor = (props) => {
           </TabContainer>
           <TabContainer
             selectedTabIndex={selectedTabIndex}
-            tabIndex={2}
+            tabIndex={1}
             topOffset={150}
           >
             <ScrollView>
@@ -226,26 +236,26 @@ const LoadEditor = (props) => {
                 </FlatList>
                 <AddButton onPress={addItem} title="Add Item"></AddButton>
               </View>
-              
-            <Input
-              isValid
-              placeholder="Goods Value"
-              label="Goods Value"
-              keyboardType='numeric'
-              value={props.goodsValue}
-              onChangeText={props.setGoodsValue}
-              containerStyle={s.inputContainer}
-              suffix="₹"
-            />
-            <Input
-              isValid
-              placeholder="Bill No"
-              label="Bill No"
-              value={props.eWayBill}
-              onChangeText={props.setEWayBill}
-              containerStyle={s.inputContainer}
-              suffix="Optional"
-            />
+
+              <Input
+                isValid
+                placeholder="Goods Value"
+                label="Goods Value"
+                keyboardType='numeric'
+                value={props.goodsValue}
+                onChangeText={props.setGoodsValue}
+                containerStyle={s.inputContainer}
+                suffix="₹"
+              />
+              <Input
+                isValid
+                placeholder="Bill No"
+                label="Bill No"
+                value={props.eWayBill}
+                onChangeText={props.setEWayBill}
+                containerStyle={s.inputContainer}
+                suffix="Optional"
+              />
               <View style={s.container} >
                 <Input
                   isValid
@@ -320,8 +330,7 @@ const LoadEditor = (props) => {
                 suffix="₹"
 
               />
-              <View style={[s.container]}>
-                <Input
+              <Input
                   isValid
                   placeholder="Total Freight Without GST"
                   label="Total Freight Without GST"
@@ -331,17 +340,38 @@ const LoadEditor = (props) => {
                   containerStyle={[s.inputContainer, s.inlineInput]}
                   suffix="₹"
                 />
-                <Input
-                  isValid
-                  placeholder="GST"
-                  label="GST"
-                  keyboardType='numeric'
-                  value={props.gst}
-                  onChangeText={props.setGst}
-                  containerStyle={[s.inputContainer, s.inlineList]}
-                  suffix="%"
-                />
-              </View>
+              
+              <Input
+                isValid
+                placeholder="IGST"
+                label="IGST"
+                keyboardType='numeric'
+                value={props.igst}
+                onChangeText={props.setIgst}
+                containerStyle={[s.inputContainer, s.inlineList]}
+                suffix="%"
+              />
+              <Input
+                isValid
+                placeholder="CGST"
+                label="CGST"
+                keyboardType='numeric'
+                value={props.cgst}
+                onChangeText={props.setCgst}
+                containerStyle={[s.inputContainer, s.inlineList]}
+                suffix="%"
+              />
+
+              <Input
+                isValid
+                placeholder="SGST"
+                label="SGST"
+                keyboardType='numeric'
+                value={props.sgst}
+                onChangeText={props.setSgst}
+                containerStyle={[s.inputContainer, s.inlineList]}
+                suffix="%"
+              />
               <Input
                 isValid
                 placeholder="Total Freight"
@@ -377,7 +407,7 @@ const LoadEditor = (props) => {
           </TabContainer>
           <TabContainer
             selectedTabIndex={selectedTabIndex}
-            tabIndex={3}
+            tabIndex={2}
             topOffset={150}
           >
             <View>

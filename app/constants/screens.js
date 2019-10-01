@@ -38,6 +38,16 @@ export default {
 	DrawerRoot: 'DrawerRoot',
 	OnBoarding: 'OnBoarding',
 	// -- LIST --
+	LoadPaymentsRoot: 'LoadPaymentsRoot',
+	LoadPayments: 'LoadPayments',
+	LoadPaymentsList: 'LoadPaymentsList',
+	LoadPaymentEditor: 'LoadPaymentEditor',
+	
+	FinalizeLoadBiltysRoot: 'FinalizeLoadBiltysRoot',
+	FinalizeLoadBiltys: 'FinalizeLoadBiltys',
+	FinalizeLoadBiltysList: 'FinalizeLoadBiltysList',
+	FinalizeLoadBiltyEditor: 'FinalizeLoadBiltyEditor',
+	
 	DriverSettlementsRoot: 'DriverSettlementsRoot',
 	DriverSettlements: 'DriverSettlements',
 	DriverSettlementsList: 'DriverSettlementsList',

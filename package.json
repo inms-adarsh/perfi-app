@@ -86,6 +86,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
     "uuid": "^3.2.1",
-    "victory-native": "^32.0.2"
+    "victory-native": "^32.0.2",
+    "xlsx": "^0.15.1"
   }
 }

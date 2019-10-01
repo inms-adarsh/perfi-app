@@ -5,7 +5,7 @@ export default StyleSheet.create({
 
   inputStyle: {
     fontSize: fontSizes.medium,
-    color: colors.greyDarker,
+    color: colors.blue,
   },
   selectedInputStile: {
     color: colors.black,
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     paddingBottom: dimensions.indent / 2,
     paddingTop: dimensions.indent / 2,
     fontSize: fontSizes.medium,
-    fontWeight: '700',
+    fontWeight: '500',
   },
   leftIconStyle: {
     paddingLeft: 0,
@@ -23,9 +23,11 @@ export default StyleSheet.create({
     paddingRight: 5,
   },
   secondInputContainer: {
-    borderColor: colors.grey,
+    borderColor: colors.white,
   },
   selectedSecondInputContainer: {
-    borderColor: colors.green,
+    borderColor: colors.white,
   },
+  containerStyle: {
+  }
 });

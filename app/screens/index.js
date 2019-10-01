@@ -18,6 +18,10 @@ import OnBoarding from './OnBoarding';
 import LoginPage from './Login';
 import RegisterPage from './Register';
 // -- IMPORT --
+import LoadPaymentEditor from "./LoadPaymentEditor";
+import LoadPayments from "./LoadPayments";
+import FinalizeLoadBiltyEditor from "./FinalizeLoadBiltyEditor";
+import FinalizeLoadBiltys from "./FinalizeLoadBiltys";
 import DriverSettlementEditor from "./DriverSettlementEditor";
 import DriverSettlements from "./DriverSettlements";
 import LoadExpenseEditor from "./LoadExpenseEditor";
@@ -66,6 +70,10 @@ export {
 	LoginPage,
 	RegisterPage,
 	// -- LIST --
+	LoadPaymentEditor,
+	LoadPayments,
+	FinalizeLoadBiltyEditor,
+	FinalizeLoadBiltys,
 	DriverSettlementEditor,
 	DriverSettlements,
 	LoadExpenseEditor,

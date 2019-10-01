@@ -10,7 +10,7 @@ export default StyleSheet.create({
     height: verticalIndent * 2.8,
     paddingLeft: indent,
     borderColor: colors.grey,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     //borderRadius: 1,
   },
   input: {
@@ -37,7 +37,6 @@ export default StyleSheet.create({
     lineHeight: fontSizes.small,
   },
   prefix: {
-    paddingLeft: indent,
     paddingRight: indent,
     color: colors.primary,
     fontSize: fontSizes.medium,

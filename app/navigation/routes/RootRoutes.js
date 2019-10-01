@@ -6,6 +6,8 @@ import {
   TrendsNavigator,
   FavouritesNavigator,
   // -- IMPORT --
+	LoadPaymentsNavigator,
+	FinalizeLoadBiltysNavigator,
 	DriverSettlementsNavigator,
 	LoadExpensesNavigator,
 	ItemsNavigator,
@@ -53,9 +55,15 @@ const Routes = {
   // },
  
   // -- LIST --
-  [screens.DriverSettlementsRoot]: {
-    screen: DriverSettlementsNavigator
-  },
+  // [screens.LoadPaymentsRoot]: {
+  //   screen: LoadPaymentsNavigator
+  // },
+  // [screens.FinalizeLoadBiltysRoot]: {
+  //   screen: FinalizeLoadBiltysNavigator
+  // },
+  // [screens.DriverSettlementsRoot]: {
+  //   screen: DriverSettlementsNavigator
+  // },
   // [screens.LoadExpensesRoot]: {
   //   screen: LoadExpensesNavigator
   // },

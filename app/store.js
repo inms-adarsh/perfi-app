@@ -27,6 +27,8 @@ const config = {
     'transactions',
     'transfers',
     // -- LIST --
+		'loadpayments',
+		'finalizeloadbiltys',
 		'driversettlements',
 		'loadexpenses',
 		'checkcalls',

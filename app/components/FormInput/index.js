@@ -34,7 +34,7 @@ const FormInput = (props) => {
   } = props;
 
   return (
-    <TouchableItem onPress={onPress} style={containerStyle}>
+    <TouchableItem onPress={onPress} style={[s.containerStyle, containerStyle]}>
       {!!label && <Text style={[s.label, labelStyle]}>{label}</Text>}
       <Input
         editable={false}
@@ -46,7 +46,7 @@ const FormInput = (props) => {
         isValid
         icon={renderIcon(icon, isDropped)}
         iconRight={{
-          name: isDropped ? 'chevron-up' : 'chevron-down',
+          name: isSelected ? 'playlist-edit' : 'plus',
           size: dimensions.iconSize - 4,
           color: isSelected ? colors.green : colors.grey,
         }}

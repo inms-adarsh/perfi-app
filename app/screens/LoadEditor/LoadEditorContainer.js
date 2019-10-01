@@ -12,7 +12,7 @@ import screens from '../../screens';
 /*-- IMPORT SCREENS --*/
 
 const screenProp = (propName, def) => R.pathOr(def, ['load', propName]);
-const requiredProps = ['loadNo', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue','totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/];
+const requiredProps = ['loadNo', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'cgst', 'igst', 'sgst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/];
 const isFieldsFilled = R.pipe(R.props, R.none(R.isNil));
 
 const enhance = compose(
@@ -50,6 +50,9 @@ const enhance = compose(
   withState('insuredAmount', 'setInsuredAmount', screenProp('insuredAmount', '')),
   withState('insuranceCompany', 'setInsuranceCompany', screenProp('insuranceCompany', '')),
   withState('gst', 'setGst', screenProp('gst', '')),
+  withState('cgst', 'setCgst', screenProp('cgst', '')),
+  withState('igst', 'setIgst', screenProp('igst', '')),
+  withState('sgst', 'setSgst', screenProp('sgst', '')),
   withState('totalFreight', 'setTotalFreight', screenProp('totalFreight', '')),
   withState('otherCharges', 'setOtherCharges', screenProp('otherCharges', '')),
   withState('haltage', 'setHaltage', screenProp('haltage', '')),
@@ -65,7 +68,7 @@ const enhance = compose(
   withState('fromLocationName', 'setFromLocationName', null),
   withState('isSelectedFromLocation', 'setSelectedFromLocation', false),
   withState('fromLocation', 'setFromLocation', null),
-  
+
   withState('eWayBill', 'setEWayBill', screenProp('eWayBill', '')),
   withState('goodsValue', 'setGoodsValue', screenProp('goodsValue', '')),
   withState('freightBy', 'setFreightBy', screenProp('freightBy', 'consignor')),
@@ -142,7 +145,7 @@ const enhance = compose(
       navigation, firestore, auth, profile, listUrl, load, onClose, ...props
     }) => () => {
       Keyboard.dismiss();
-      const editedProps = R.pick(['loadNo', 'items', 'customer', 'broker', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'transportation', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'gst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/], props);
+      const editedProps = R.pick(['loadNo', 'items', 'customer', 'broker', 'consignor', 'consignee', 'deliveryAddress', 'customerType', 'transportation', 'gstBy', 'freightBy', 'fromLocation', 'toLocation', 'goodsValue', 'eWayBill', 'totalQuantity', 'quantityUnit', 'ratePerUnit', 'freight', 'hamali', 'haltage', 'otherCharges', 'totalFreight', 'cgst', 'sgst', 'igst', 'insuranceCompany', 'insuredAmount', 'driver', 'truck', 'advancePaid', 'toPay', 'date',/*-- ADD PROPS --*/], props);
       const propsToSubmit = load ? Object.assign(load, editedProps) : editedProps;
       let promise = {};
       propsToSubmit.date = propsToSubmit.date.toString();
@@ -289,7 +292,7 @@ const enhance = compose(
     onDeleteItem: ({ items, setItems }) => (item) => {
       setItems(items.filter(el => el !== item));
     },
-    
+
   }),
   withPropsOnChange(
     requiredProps,
@@ -308,9 +311,9 @@ const enhance = compose(
     }),
   ),
   withPropsOnChange(
-    ['valueWithoutGst', 'gst'],
+    ['valueWithoutGst', 'sgst', 'igst', 'cgst'],
     props => ({
-      totalFreight: (props.valueWithoutGst || 0) + ((props.valueWithoutGst || 0) * (props.gst || 0) * 0.01),
+      totalFreight: (props.valueWithoutGst || 0) + ((props.valueWithoutGst || 0) * (props.cgst || 0) * 0.01) + ((props.valueWithoutGst || 0) * (props.igst || 0) * 0.01) + ((props.valueWithoutGst || 0) * (props.sgst || 0) * 0.01),
     }),
   ),
   withPropsOnChange(
@@ -353,26 +356,50 @@ const enhance = compose(
       if (load) {
         const { date, loadNo, customer, broker, consignor, consignee, transportation, fromLocation, toLocation, items, driver, truck,/*-- FETCH PROPS --*/ } = load;
         setLoadNo(loadNo);
-        setSelectedCustomer(true);
-        setCustomer(customer);
-        setSelectedBroker(true);
-        setBroker(broker);
-        setSelectedConsignor(true);
-        setConsignor(consignor);
-        setSelectedConsignee(true);
-        setConsignee(consignee);
-        setSelectedTransportation(true);
-        setTransportation(transportation);
-        setSelectedFromLocation(true);
-        setFromLocation(fromLocation);
-        setSelectedToLocation(true);
-        setToLocation(toLocation);
-        setItems(items);
-        setSelectedDriver(true);
-        setDriver(driver);
-        setSelectedTruck(true);
-        setTruck(truck);
-        setDate(new Date(date));
+        if (customer) {
+          setSelectedCustomer(true);
+          setCustomer(customer);
+        }
+
+        if (broker) {
+          setSelectedBroker(true);
+          setBroker(broker);
+        }
+
+        if (consignor) {
+          setSelectedConsignor(true);
+          setConsignor(consignor);
+        }
+        if (consignee) {
+          setSelectedConsignee(true);
+          setConsignee(consignee);
+        }
+        if (transportation) {
+          setSelectedTransportation(true);
+          setTransportation(transportation);
+        }
+        if (fromLocation) {
+          setSelectedFromLocation(true);
+          setFromLocation(fromLocation);
+        }
+        if (toLocation) {
+          setSelectedToLocation(true);
+          setToLocation(toLocation);
+        }
+        if (items) {
+          setItems(items);
+        }
+        if (driver) {
+          setSelectedDriver(true);
+          setDriver(driver);
+        }
+        if (truck) {
+          setSelectedTruck(true);
+          setTruck(truck);
+        }
+        if (date) {
+          setDate(new Date(date));
+        }
         /*-- SET PROPS --*/
       }
       navigation.setParams({ onSubmit: onSubmit });

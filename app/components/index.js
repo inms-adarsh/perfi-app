@@ -38,6 +38,8 @@ import EmptyList from './EmptyList';
 import LabelRow from './LabelRow';
 
 // -- IMPORT --
+import LoadPaymentsList from "./LoadPaymentsList";
+import FinalizeLoadBiltysList from "./FinalizeLoadBiltysList";
 import DriverSettlementsList from "./DriverSettlementsList";
 import LoadExpensesList from "./LoadExpensesList";
 import CheckCallsList from "./CheckCallsList";
@@ -93,6 +95,8 @@ export {
   EmptyList,
   LabelRow,
   // -- LIST --
+	LoadPaymentsList,
+	FinalizeLoadBiltysList,
 	DriverSettlementsList,
 	LoadExpensesList,
 	CheckCallsList,

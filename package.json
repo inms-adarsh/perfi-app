@@ -46,7 +46,7 @@
     "expo-print": "~6.0.0",
     "expr-eval": "^1.2.1",
     "firebase": "^6.4.0",
-    "moment": "^2.20.1",
+    "moment": "^2.29.2",
     "ngx-audo": "file:../ngx-reduxor",
     "paths-js": "^0.4.5",
     "prop-types": "^15.7.2",
